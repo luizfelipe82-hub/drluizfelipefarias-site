@@ -71,6 +71,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 .prodt td{vertical-align:top}.prodt .mk{font-weight:700}.linkb{font:inherit;font-size:12px;font-weight:600;color:var(--bronze);background:none;border:0;padding:0;cursor:pointer;text-decoration:underline}
 .tw{overflow-x:auto}
 [hidden]{display:none!important}
+@media print{nav,.btn,.gate,#verTermo{display:none!important}body{background:#fff}.card,.big{break-inside:avoid}}
 </style>
 </head>
 <body>
@@ -136,6 +137,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
       <div id="oAlerts"></div>
       <button class="btn" id="copyS">Copiar orientação</button>
       <span class="small" id="copyMsg"></span>
+      <button class="btn sec" onclick="printPage()">Imprimir / salvar PDF</button>
     </div>
   </div>
 </div>
@@ -148,7 +150,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 
 <!-- ===================== CANETA ===================== -->
 <section class="view" id="v-pen">
-<div class="note" style="margin:0 0 14px"><b>Uso fora da bula.</b> A Novo Nordisk informa que não avaliou a dosagem por número de cliques e não a recomenda, porque a dose entregue não é garantida; a Mounjaro KwikPen é desenhada para 4 doses fixas de 0,6 mL. Use este modo só com calibração na própria caneta, decisão documentada e paciente orientado.</div>
+<div class="note" style="margin:0 0 14px"><b>Uso fora da bula.</b> A Novo Nordisk informa que não avaliou a dosagem por número de cliques e não a recomenda, porque a dose entregue não é garantida; a Mounjaro KwikPen é desenhada para 4 doses fixas de 0,6 mL. Os cliques de referência já vêm preenchidos; confira na caneta do paciente, documente a decisão e oriente o paciente.</div>
 <div class="grid">
   <div class="card">
     <h2>1 · Caneta</h2>
@@ -184,6 +186,18 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
       <dl class="kv" id="qKV"></dl>
       <div id="qAlerts"></div>
       <button class="btn" id="copyP">Copiar orientação</button> <span class="small" id="copyMsgP"></span>
+      <button class="btn sec" onclick="printPage()">Imprimir / salvar PDF</button>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>Trocar de caneta</h2>
+      <p class="small">A mesma dose em mg em outra caneta (ex.: Ozempic® → Wegovy®/Poviztra®, ou KwikPen de outra concentração).</p>
+      <label for="swPen">Caneta de destino</label><select id="swPen"></select>
+      <div id="swOut"></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>Rendimento e custo</h2>
+      <label for="cPrice">Preço pago pela caneta (R$, opcional)</label><input id="cPrice" type="number" step="any" placeholder="ex.: 829">
+      <div id="cOut"></div>
     </div>
   </div>
 </div>
@@ -193,7 +207,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 <section class="view" id="v-prod">
 <div class="card">
   <h2>Análogos de GLP-1 e GIP/GLP-1 no Brasil</h2>
-  <p class="small" style="margin-top:-6px">Registros Anvisa e apresentações levantados em 07/11/2026 (atualizado com dulaglutida, exenatida e lixisenatida). Itens marcados “conferir rótulo” têm concentração presumida igual à do produto de referência (1,34 mg/mL para semaglutida; 6 mg/mL para liraglutida) — confirme na embalagem antes de calcular.</p>
+  <p class="small" style="margin-top:-6px">Registros Anvisa e apresentações levantados em 07/11/2026 (atualizado com dulaglutida, exenatida e lixisenatida). Itens marcados “conferir rótulo” têm concentração presumida igual à do produto de referência (1,34 mg/mL para semaglutida; 6 mg/mL para liraglutida) — confirme na embalagem antes de calcular. Comprimidos (Rybelsus®, Wegovy® oral) não se convertem em cliques nem em UI.</p>
   <div class="chips" id="prodChips"></div>
   <div class="tw"><table class="prodt"><thead><tr><th>Produto</th><th>Tipo</th><th>Concentração · volume</th><th>Doses / apresentação</th><th>Cliques (ref.)</th><th>Esquema</th><th>Situação</th><th></th></tr></thead><tbody id="prodT"></tbody></table></div>
 </div>
@@ -254,6 +268,9 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
     <li>Novo Nordisk. Bulas Wegovy® (0,68 / 1,34 / 2,27 / 3,2 mg/mL), Xultophy® (100 U/mL + 3,6 mg/mL; 1 unidade = 0,036 mg liraglutida), Victoza®/Saxenda® (6 mg/mL). Eli Lilly. Bulas Trulicity® e Mounjaro®.</li>
     <li>AstraZeneca. Bula Byetta® (exenatida 250 mcg/mL; canetas 1,2 mL e 2,4 mL, 60 doses de 5 ou 10 mcg; Reg. MS 1.0180.0405). Descontinuação do Bydureon® BCise nos EUA (out/2024) e de Bydureon®/Byetta® na Itália (2025).</li>
     <li>Sanofi. Bulas Lyxumia® (0,05 e 0,1 mg/mL; 14 doses de 0,2 mL) e Soliqua® (100 U/mL + 50 mcg/mL e 100 U/mL + 33 mcg/mL). Eli Lilly. Trulicity® 0,75 / 1,5 / 3 / 4,5 mg em 0,5 mL (AWARD-11).</li>
+    <li>Wharton S et al. Once-weekly semaglutide 7·2 mg in adults with obesity (STEP UP). <i>Lancet Diabetes Endocrinol</i> 2025;13:949-963. PMID 40961952 · doi:10.1016/S2213-8587(25)00226-8 — 7,2 mg: −18,7% vs −15,6% (2,4 mg) em 72 semanas.</li>
+    <li>Lingvay I et al. Once-weekly semaglutide 7·2 mg in adults with obesity and type 2 diabetes (STEP UP T2D). <i>Lancet Diabetes Endocrinol</i> 2025;13:935-948. PMID 40961953 · doi:10.1016/S2213-8587(25)00225-6.</li>
+    <li>Eurofarma/Novo Nordisk. Poviztra® (idêntico ao Wegovy®) e Extensior® (idêntico ao Ozempic®), comercializados desde out/2025; Anvisa: Wegovy® 7,2 mg (mai/2026) e Poviztra® 7,2 mg (jun/2026).</li>
     <li>Wharton S et al. Oral semaglutide at a dose of 25 mg in adults with overweight or obesity (OASIS 4). <i>N Engl J Med</i> 2025;393:1077-1087. PMID 40934115 · doi:10.1056/NEJMoa2500969 — base do registro do Wegovy® oral.</li>
   </ol>
   <p class="small">Valores de cliques que circulam na internet divergem entre si (ex.: 18 vs. 1 clique para 0,25 mg); por isso a calculadora exige calibração na caneta do paciente.</p>
@@ -262,7 +279,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 </section>
 </main>
 <footer>
-<b>Conversor GLP-1</b> · versão 1.3 · 07/11/2026 · criado por Dr. Luiz Felipe Louzada Farias · CRM-ES 16911.<br>
+<b>Conversor GLP-1</b> · versão 2.0 · 07/11/2026 · criado por Dr. Luiz Felipe Louzada Farias · CRM-ES 16911.<br>
 Ferramenta de apoio ao cálculo para profissionais de saúde. Não é prescrição, não substitui avaliação médica individual, bula, rótulo ou protocolo institucional, e não é dispositivo médico. O autor não se responsabiliza por doses calculadas, preparadas ou aplicadas por terceiros, nem por erros de digitação, de leitura, de produto ou de interpretação. Ao usar, você declara ter aceitado o termo de uso. Reprodução ou redistribuição do conteúdo sem autorização do autor não é permitida.
 </footer>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gT">
@@ -298,7 +315,7 @@ document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.query
 // escalonamentos de referência (bula / ensaios pivotais)
 const ESC={
  tz:{nome:"Tirzepatida",freq:"semanal",steps:[2.5,5,7.5,10,12.5,15],txt:"Tirzepatida: início 2,5 mg/semana por 4 semanas, +2,5 mg a cada ≥4 semanas; manutenção 5, 10 ou 15 mg (SURMOUNT-1)."},
- sema:{nome:"Semaglutida",freq:"semanal",steps:[0.25,0.5,1,1.7,2.4],txt:"Semaglutida: 0,25 → 0,5 → 1,0 → 1,7 → 2,4 mg/semana, passos de 4 semanas (STEP 1). Ozempic® DM2: até 1 mg (2 mg na apresentação de alta dose)."},
+ sema:{nome:"Semaglutida",freq:"semanal",steps:[0.25,0.5,1,1.7,2.4,7.2],txt:"Semaglutida: 0,25 → 0,5 → 1,0 → 1,7 → 2,4 mg/semana, passos de 4 semanas (STEP 1); 7,2 mg/semana aprovado em 2026 para resposta insuficiente a 2,4 mg (STEP UP). Ozempic® DM2: até 1 mg (2 mg na apresentação de alta dose)."},
  lira:{nome:"Liraglutida",freq:"diária",steps:[0.6,1.2,1.8,2.4,3.0],txt:"Liraglutida: 0,6 mg/dia com aumento de 0,6 mg por semana até 3,0 mg/dia (SCALE)."},
  outro:{nome:"Molécula",freq:"",steps:[],txt:"Sem escalonamento padrão: informe a dose desejada."}
 };
@@ -360,7 +377,15 @@ const CAT=[
  {g:"Semaglutida SC",m:"Wegovy® 0,5 mg",e:"Novo Nordisk",t:"fixa",c:1.34,v:1.5,d:"4 doses de 0,5 mg",esq:"Sem 5–8",st:"Comercializado",ref:"bula BR",refMg:0.5},
  {g:"Semaglutida SC",m:"Wegovy® 1 mg",e:"Novo Nordisk",t:"fixa",c:1.34,v:3,d:"4 doses de 1 mg",esq:"Sem 9–12",st:"Comercializado",ref:"bula BR",refMg:1},
  {g:"Semaglutida SC",m:"Wegovy® 1,7 mg",e:"Novo Nordisk",t:"fixa",c:2.27,v:3,d:"4 doses de 1,7 mg",esq:"Sem 13–16",st:"Comercializado",ref:"bula BR",refMg:1.7},
- {g:"Semaglutida SC",m:"Wegovy® 2,4 mg",e:"Novo Nordisk",t:"fixa",c:3.2,v:3,d:"4 doses de 2,4 mg",esq:"Manutenção 2,4 mg/sem",st:"Comercializado",ref:"bula BR",refMg:2.4},
+ {g:"Semaglutida SC",m:"Wegovy® 2,4 mg",e:"Novo Nordisk",t:"fixa",c:3.2,v:3,d:"4 doses de 2,4 mg",esq:"Manutenção 2,4 mg/sem · 7,2 mg/sem aprovado pela Anvisa (mai/2026) se resposta insuficiente após ≥4 sem em 2,4 mg — sem caneta própria no Brasil: 3 aplicações de 2,4 mg na mesma sessão (STEP UP)",st:"Comercializado",ref:"bula BR",refMg:2.4},
+ // --- SEMAGLUTIDA Novo Nordisk distribuída pela Eurofarma (idênticas a Ozempic/Wegovy) ---
+ {g:"Semaglutida SC",m:"Extensior® 0,25/0,5 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"dial",c:1.34,v:1.5,d:"Idêntico ao Ozempic® · doses 0,25 e 0,5 mg",esq:"Como Ozempic (DM2)",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:0.5},
+ {g:"Semaglutida SC",m:"Extensior® 1 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"dial",c:1.34,v:3,d:"Idêntico ao Ozempic® 1 mg · 4 doses",esq:"Como Ozempic (DM2)",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:1},
+ {g:"Semaglutida SC",m:"Poviztra® 0,25 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"fixa",c:0.68,v:1.5,d:"Idêntico ao Wegovy® · 4 doses de 0,25 mg",esq:"Sem 1–4",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:0.25},
+ {g:"Semaglutida SC",m:"Poviztra® 0,5 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"fixa",c:1.34,v:1.5,d:"Idêntico ao Wegovy® · 4 doses de 0,5 mg",esq:"Sem 5–8",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:0.5},
+ {g:"Semaglutida SC",m:"Poviztra® 1 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"fixa",c:1.34,v:3,d:"Idêntico ao Wegovy® · 4 doses de 1 mg",esq:"Sem 9–12",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:1},
+ {g:"Semaglutida SC",m:"Poviztra® 1,7 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"fixa",c:2.27,v:3,d:"Idêntico ao Wegovy® · 4 doses de 1,7 mg",esq:"Sem 13–16",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:1.7},
+ {g:"Semaglutida SC",m:"Poviztra® 2,4 mg",e:"Eurofarma (fab. Novo Nordisk)",t:"fixa",c:3.2,v:3,d:"Idêntico ao Wegovy® · 4 doses de 2,4 mg",esq:"Manutenção 2,4 mg/sem · 7,2 mg/sem aprovado (jun/2026) = 3 aplicações de 2,4 mg na mesma sessão",st:"Comercializado desde out/2025",ref:"Eurofarma",refMg:2.4},
  // --- SEMAGLUTIDA SC sintética (pós-patente 20/03/2026) ---
  {g:"Semaglutida SC sintética",m:"Ozivy®",e:"EMS",t:"dial",c:1.34,v:1.5,d:"Canetas de 1,5 mL e 3 mL",esq:"Como Ozempic (DM2)",st:"Registrado 26/05/2026 · medicamento de referência da semaglutida sintética",ref:"Anvisa/DOU",refMg:0.5},
  {g:"Semaglutida SC sintética",m:"Semaglutida genérica",e:"EMS",t:"dial",c:1.34,v:3,d:"Canetas de 1,5 mL e 3 mL",esq:"Como Ozempic (DM2)",st:"Registrado 17/08/2026",ref:"Anvisa/DOU",refMg:1},
@@ -410,19 +435,24 @@ const CAT=[
  {g:"Tirzepatida SC",m:"Mounjaro® KwikPen 12,5 mg",e:"Eli Lilly",t:"fixa",c:20.8,v:2.4,d:"4 doses de 0,6 mL",esq:"",st:"Registrado 18/03/2026",ref:"bula/Anvisa",refMg:12.5},
  {g:"Tirzepatida SC",m:"Mounjaro® KwikPen 15 mg",e:"Eli Lilly",t:"fixa",c:25,v:2.4,d:"4 doses de 0,6 mL",esq:"",st:"Registrado 18/03/2026",ref:"bula/Anvisa",refMg:15},
  {g:"Semaglutida SC",m:"Semaglutida manipulada",e:"—",t:"frasco",c:null,v:null,d:"—",esq:"—",st:"PROIBIDA pela Anvisa (manipulação de semaglutida vedada desde ago/2025)",ref:"Anvisa",refMg:null},
- {g:"Tirzepatida SC",m:"Tirzepatida manipulada",e:"Farmácia magistral estéril",t:"frasco",c:null,v:null,d:"Frasco/ampola — concentração do rótulo do lote",esq:"Conforme prescrição individual",st:"Permitida só em farmácia estéril, com prescrição individual (NT Anvisa 200/2025); sob fiscalização intensificada em 2026",ref:"Anvisa",refMg:null}
+ {g:"Tirzepatida SC",m:"Tirzepatida manipulada",e:"Farmácia magistral estéril",t:"frasco",c:null,v:null,d:"Frasco/ampola — concentração do rótulo do lote",esq:"Conforme prescrição individual",st:"Permitida só em farmácia estéril, com prescrição individual (NT Anvisa 200/2025); sob fiscalização intensificada em 2026",ref:"Anvisa",refMg:null},
+ // --- SEM REGISTRO NO BRASIL (não converter) ---
+ {g:"Sem registro no Brasil",m:"Orforglipron (Foundayo®)",e:"Eli Lilly",t:"pipe",c:null,v:null,d:"Comprimido diário, agonista GLP-1 não peptídico",esq:"—",st:"Aprovado pela FDA (abr/2026) · sem registro na Anvisa até 07/11/2026",ref:"FDA",refMg:null},
+ {g:"Sem registro no Brasil",m:"Retatrutida",e:"Eli Lilly",t:"pipe",c:null,v:null,d:"Agonista triplo GIP/GLP-1/glucagon, injetável semanal",esq:"—",st:"Fase 3 (TRIUMPH) · sem registro em nenhum país · venda proibida no Brasil (Anvisa)",ref:"Anvisa",refMg:null},
+ {g:"Sem registro no Brasil",m:"CagriSema",e:"Novo Nordisk",t:"pipe",c:null,v:null,d:"Cagrilintida + semaglutida, injetável semanal",esq:"—",st:"Em análise na FDA · sem registro no Brasil",ref:"FDA",refMg:null},
+ {g:"Sem registro no Brasil",m:"Survodutida",e:"Boehringer Ingelheim",t:"pipe",c:null,v:null,d:"Agonista duplo glucagon/GLP-1, injetável semanal",esq:"—",st:"Fase 3 · sem registro",ref:"—",refMg:null}
 ];
 // Referência de cliques por dose marcada (não publicada pelos fabricantes; derivada do volume da dose e da mecânica da caneta)
-const CKREF={"Ozempic®":37,"Ozempic® 1 mg":74,"Ozempic® 2 mg":74,"Wegovy® 0,25 mg":37,"Wegovy® 0,5 mg":37,"Wegovy® 1 mg":74,"Wegovy® 1,7 mg":75,"Wegovy® 2,4 mg":75};
+const CKREF={"Ozempic®":37,"Ozempic® 1 mg":74,"Ozempic® 2 mg":74,"Wegovy® 0,25 mg":37,"Wegovy® 0,5 mg":37,"Wegovy® 1 mg":74,"Wegovy® 1,7 mg":75,"Wegovy® 2,4 mg":75,"Extensior® 0,25/0,5 mg":37,"Extensior® 1 mg":74,"Poviztra® 0,25 mg":37,"Poviztra® 0,5 mg":37,"Poviztra® 1 mg":74,"Poviztra® 1,7 mg":75,"Poviztra® 2,4 mg":75};
 CAT.forEach(p=>{if(p.t!=="dial"&&p.t!=="fixa")return;
  if(/KwikPen/.test(p.m)){p.ck=60;p.ckSrc="KwikPen: 60 cliques = 1 dose cheia (0,6 mL) em todas as concentrações — referência amplamente citada; a Lilly não publica contagem de cliques.";return;}
- if(p.mgDial){p.ck=null;p.ckSrc="Caneta com seletor graduado em mg: a bula orienta NÃO contar cliques (o clique muda perto do fim da caneta). Use o mostrador.";return;}
- if(/Byetta|Lyxumia/.test(p.m)){p.ck=null;p.ckSrc="Caneta de dose fixa por acionamento: não permite fracionar por cliques.";return;}
+ if(p.mgDial){p.mx=/^(Victoza|Lirux)/.test(p.m)?1.8:3;p.ck=Math.round(p.refMg/p.c/0.01);p.ckSrc="⚠ BULA (Victoza®/Saxenda®): selecione a dose pelo mostrador e NÃO conte os cliques — o clique muda ao girar para trás e perto do fim da caneta. Referência não oficial, só para conferência: 10 cliques ≈ 0,6 mg (1 clique ≈ 0,01 mL ≈ 0,06 mg); há fontes que chamam de ‘clique’ cada degrau de 0,6 mg.";return;}
+ if(/Byetta|Lyxumia/.test(p.m)){p.ck=1;p.ckSrc="⚠ BULA: caneta de dose fixa — cada acionamento entrega a dose do rótulo ("+(p.refMg*1000)+" mcg). Não existe ajuste por cliques; 1 acionamento = 1 dose.";return;}
  if(/Semaglutida/.test(p.g)){p.ck=CKREF[p.m]??(p.refMg&&p.c?Math.round(p.refMg/p.c/0.01*0.993):null);p.ckSrc="FlexTouch e similares: 1 clique ≈ 0,01 mL (volume da dose na bula ÷ 0,01 mL). Ex.: Ozempic® 1,34 mg/mL — 1 mg = 0,74 mL = 74 cliques. Referência não oficial; nas sintéticas, confirmar o mecanismo da caneta.";}
 });
-const TLAB={dial:"Caneta multidose · seletor",fixa:"Multidose · dose fixa",unica:"Dose única",oral:"Oral",combo:"Combinação (unidades)",frasco:"Frasco (seringa)"};
+const TLAB={dial:"Caneta multidose · seletor",fixa:"Multidose · dose fixa",unica:"Dose única",oral:"Oral",combo:"Combinação (unidades)",frasco:"Frasco (seringa)",pipe:"Sem registro no Brasil"};
 
-const PENS=CAT.filter(p=>p.t==="dial"||p.t==="fixa").map((p,k)=>({id:"p"+k,nome:p.m+" · "+p.e+(p.conf?" (conferir rótulo)":""),c:p.c,v:p.v,refMg:p.refMg,refCk:p.ck??"",ckSrc:p.ckSrc||"",max:p.t==="fixa"?p.refMg:null,fixa:p.t==="fixa",mgDial:!!p.mgDial,grp:p.g,nota:(p.t==="fixa"?"Multidose de dose fixa ("+p.d+"). ":"")+(p.mgDial?"Seletor graduado em mg: use a marcação da caneta; cliques só como conferência. ":"")+(p.conf?"Concentração presumida — confira no rótulo. ":"")+"Esquema: "+p.esq}));
+const PENS=CAT.filter(p=>p.t==="dial"||p.t==="fixa").map((p,k)=>({id:"p"+k,nome:p.m+" · "+p.e+(p.conf?" (conferir rótulo)":""),c:p.c,v:p.v,refMg:p.refMg,refCk:p.ck??"",ckSrc:p.ckSrc||"",max:p.t==="fixa"?p.refMg:(p.mx||null),fixa:p.t==="fixa",mgDial:!!p.mgDial,grp:p.g,nota:(p.t==="fixa"?"Multidose de dose fixa ("+p.d+"). ":"")+(p.mgDial?"Seletor graduado em mg: use a marcação da caneta; cliques só como conferência. ":"")+(p.conf?"Concentração presumida — confira no rótulo. ":"")+"Esquema: "+p.esq}));
 PENS.push({id:"cus",nome:"Outra caneta (personalizada)",c:"",v:"",refMg:"",refCk:"",max:null,nota:"Informe concentração, volume e calibração."});
 $("pPen").innerHTML=[...new Set(PENS.map(p=>p.grp||"Outra"))].map(g=>`<optgroup label="${g}">`+PENS.filter(p=>(p.grp||"Outra")===g).map(p=>`<option value="${p.id}">${p.nome}</option>`).join("")+`</optgroup>`).join("");
 function setPen(){const p=PENS.find(x=>x.id===$("pPen").value);$("pConc").value=p.c;$("pVol").value=p.v;$("pRefMg").value=p.refMg;$("pRefCk").value=p.refCk;$("pRefNote").innerHTML=(p.refCk!==""?`<b>Referência de fábrica: ${p.refCk} cliques = ${f(p.refMg,3)} mg</b> (dose marcada). `:"")+(p.ckSrc?p.ckSrc+" ":"")+p.nota+(p.refCk!==""?" Se a caneta do paciente contar diferente, ajuste o número de cliques acima.":"");calcP();}
@@ -441,15 +471,30 @@ function calcP(){const p=PENS.find(x=>x.id===$("pPen").value),c=num("pConc"),v=n
  if(!isFinite(rc)||rc<=0)al.push(["alert","Sem calibração: conte os cliques de 0 até a dose marcada e informe acima. Sem esse número a conversão não é feita."]);
  if(p.max!=null&&isFinite(mg)&&mg>p.max+1e-9)al.push(["alert",`Acima da dose máxima marcada desta caneta (${f(p.max)} mg). O seletor pode não permitir.`]);
  if(p.fixa)al.push(["note","Caneta de dose fixa (4 doses): o volume residual não é dose garantida pelo fabricante. Não programe uma 5ª dose."]);
- if(p.mgDial)al.push(["okk","Esta caneta tem seletor em mg: prefira a marcação do mostrador à contagem de cliques."]);
+ if(p.mgDial)al.push(["alert","Bula: nesta caneta a dose deve ser selecionada pelo mostrador em mg; não conte os cliques. Os cliques mostrados aqui são só referência de conferência."]);
+ if(/Byetta|Lyxumia/.test(p.nome))al.push(["alert","Bula: caneta de dose fixa — 1 acionamento = 1 dose do rótulo. Não fracionar."]);
  if(/semaglutida/i.test(p.grp||""))al.push(["note","Semaglutida: confira na bula do produto a validade após o 1º uso e a conservação (versões sintéticas exigem geladeira 2–8 °C também durante o uso)."]);
  al.push(["note","Arredondado ao clique inteiro. Registre no prontuário a calibração, a decisão off-label e a orientação dada."]);
  $("qAlerts").innerHTML=al.map(a=>`<div class="${a[0]}">${a[1]}</div>`).join("");
- const DS={"Semaglutida SC":[0.1,0.125,0.25,0.375,0.5,0.75,1,1.25,1.5,1.7,2,2.4],"Semaglutida SC sintética":[0.1,0.125,0.25,0.375,0.5,0.75,1],"Tirzepatida SC":[1,1.25,2,2.5,3.75,5,6.25,7.5,10,12.5,15]}[p.grp];
- $("pTab").innerHTML=(DS&&isFinite(mgck)&&mgck>0)?`<table style="margin-top:8px"><thead><tr><th>Dose (mg)</th><th>Cliques</th><th>Entrega real (mg)</th></tr></thead><tbody>${DS.filter(d=>d<=rm+1e-9).map(d=>{const k=Math.round(d/mgck);return `<tr${Math.abs(d-mg)<1e-9?' class="hl"':''}><td class="num">${f(d,3)}</td><td class="num">${k}</td><td class="num">${f(k*mgck,3)}</td></tr>`;}).join("")}</tbody></table><p class="small">Doses até o máximo que esta caneta entrega por aplicação.</p>`:"";
+ const DS={"Semaglutida SC":[0.1,0.125,0.25,0.375,0.5,0.75,1,1.25,1.5,1.7,2,2.4],"Semaglutida SC sintética":[0.1,0.125,0.25,0.375,0.5,0.75,1],"Tirzepatida SC":[1,1.25,2,2.5,3.75,5,6.25,7.5,10,12.5,15],"Liraglutida SC":[0.3,0.6,0.9,1.2,1.5,1.8,2.4,3]}[p.grp]||[rm];
+ $("pTab").innerHTML=(DS&&isFinite(mgck)&&mgck>0)?`<table style="margin-top:8px"><thead><tr><th>Dose (mg)</th><th>Cliques</th><th>Entrega real (mg)</th></tr></thead><tbody>${DS.filter(d=>d<=(p.max||rm)+1e-9).map(d=>{const k=Math.round(d/mgck);return `<tr${Math.abs(d-mg)<1e-9?' class="hl"':''}><td class="num">${f(d,3)}</td><td class="num">${k}</td><td class="num">${f(k*mgck,3)}</td></tr>`;}).join("")}</tbody></table><p class="small">Doses até o máximo que esta caneta entrega por aplicação.</p>`:"";
+ calcSw(p,mg,c,v,left);
  pSummary=`${p.nome}\nDose: ${f(mg,3)} mg = ${ck} cliques (referência: ${f(rm)} mg = ${rc} cliques nesta caneta)\nUso fora da bula; dose por cliques não validada pelo fabricante.`;
 }
 $("copyP").onclick=()=>copy(pSummary+SUF,"copyMsgP");
+
+// ===================== TROCA DE CANETA, RENDIMENTO E CUSTO =====================
+function printPage(){try{window.print();}catch(e){}}
+function calcSw(p,mg,c,v,left){const q=PENS.find(x=>x.id===$("swPen").value);let h="";
+ if(q&&isFinite(mg)&&mg>0){const qk=q.refMg/(+q.refCk);const qck=Math.round(mg/qk);const qv=mg/q.c;
+  h=`<dl class="kv"><dt>Dose</dt><dd>${f(mg,3)} mg</dd><dt>Na caneta de destino</dt><dd>${isFinite(qck)?qck+" cliques":"—"} · ${f(qv,3)} mL</dd>`+(q.max&&mg>q.max+1e-9?`<dt></dt><dd style="color:var(--alerta)">Acima do máximo por aplicação desta caneta (${f(q.max,3)} mg)</dd>`:"")+(q.mgDial?`<dt></dt><dd style="color:var(--alerta)">Bula: nesta caneta selecione pelo mostrador em mg, não por cliques</dd>`:"")+(/Byetta|Lyxumia/.test(q.nome)?`<dt></dt><dd style="color:var(--alerta)">Caneta de dose fixa: não fraciona</dd>`:"")+`</dl>`;}
+ $("swOut").innerHTML=h;
+ const pr=num("cPrice"),daily=/Liraglutida|Exenatida|Lixisenatida/.test(p.grp||""),total=c*v,dpp=Math.floor(left/mg+1e-9);
+ let k=`<dl class="kv"><dt>Conteúdo da caneta</dt><dd>${f(total,2)} mg</dd><dt>Doses nesta dose</dt><dd>${isFinite(dpp)?dpp:"—"}${p.fixa?" (teórico — canetas de dose fixa podem travar após 4 acionamentos)":""}</dd><dt>Duração</dt><dd>${isFinite(dpp)?dpp+(daily?" dias":" semanas"):"—"}</dd>`;
+ if(isFinite(pr)&&pr>0&&total>0){const perMg=pr/total,perDose=perMg*mg,perMonth=perDose*(daily?30:4.33);k+=`<dt>Custo por mg</dt><dd>R$ ${f(perMg,2)}</dd><dt>Custo por dose</dt><dd>R$ ${f(perDose,2)}</dd><dt>Custo por mês</dt><dd>R$ ${f(perMonth,2)}</dd>`;}
+ $("cOut").innerHTML=k+`</dl>`;}
+$("swPen").innerHTML=$("pPen").innerHTML;$("swPen").value=(PENS.find(x=>/^Poviztra® 1 mg/.test(x.nome))||PENS[0]).id;
+$("swPen").addEventListener("change",()=>calcP());$("cPrice").addEventListener("input",()=>calcP());
 
 // ===================== PRODUTOS =====================
 let prodF="Todos";
@@ -458,8 +503,8 @@ function renderProd(){const gs=["Todos",...new Set(CAT.map(p=>p.g))];
  $("prodChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{prodF=b.dataset.g;renderProd();});
  $("prodT").innerHTML=CAT.filter(p=>prodF==="Todos"||p.g===prodF).map((p,i)=>{const k=CAT.indexOf(p);const pi=PENS.findIndex(x=>x.nome.startsWith(p.m+" · "+p.e));
   const conc=p.c?`${f(p.c,3)} ${p.t==="combo"?(/Soliqua/.test(p.m)?"mg/mL lixi + 100 U/mL":"mg/mL lira + 100 U/mL"):"mg/mL"}${p.v?` · ${f(p.v,2)} mL`:""}${p.c&&p.v&&p.t!=="combo"?` (${f(p.c*p.v,2)} mg)`:""}`:(p.v?`${f(p.v,2)} mL/caneta`:"—");
-  const warn=/PROIBIDA|ainda sem|Conferir|aguarda/i.test(p.st)||p.conf;
-  return `<tr><td><span class="mk">${p.m}</span><br><span class="small">${p.e}</span></td><td><span class="tag2">${TLAB[p.t]}</span></td><td>${conc}${p.conf?'<br><span class="tag2 warn">conferir rótulo</span>':''}</td><td>${p.d}</td><td class="num">${p.ck?`${p.ck} = ${f(p.refMg,3)} mg`:(p.t==="dial"||p.t==="fixa"?'<span class="small">não contar</span>':"—")}</td><td class="small">${p.esq}</td><td class="small"><span class="${warn?'tag2 warn':''}">${p.st}</span></td><td>${pi>=0?`<button class="linkb" data-pi="${pi}">Calcular</button>`:(p.t==="frasco"&&!/PROIBIDA/.test(p.st)?`<button class="linkb" data-ser="1">Seringa</button>`:"")}</td></tr>`;}).join("");
+  const warn=/PROIBIDA|ainda sem|Conferir|aguarda|sem registro/i.test(p.st)||p.conf;
+  return `<tr><td><span class="mk">${p.m}</span><br><span class="small">${p.e}</span></td><td><span class="tag2">${TLAB[p.t]}</span></td><td>${conc}${p.conf?'<br><span class="tag2 warn">conferir rótulo</span>':''}</td><td>${p.d}</td><td class="num">${p.ck?`${p.ck} = ${f(p.refMg,3)} mg`+(p.mgDial?'<br><span class="tag2 warn">bula: não contar</span>':/Byetta|Lyxumia/.test(p.m)?'<br><span class="tag2 warn">1 acionamento</span>':''):"—"}</td><td class="small">${p.esq}</td><td class="small"><span class="${warn?'tag2 warn':''}">${p.st}</span></td><td>${pi>=0?`<button class="linkb" data-pi="${pi}">Calcular</button>`:(p.t==="frasco"&&!/PROIBIDA/.test(p.st)?`<button class="linkb" data-ser="1">Seringa</button>`:"")}</td></tr>`;}).join("");
  $("prodT").querySelectorAll("[data-pi]").forEach(b=>b.onclick=()=>{$("pPen").value=PENS[+b.dataset.pi].id;setPen();document.querySelector('nav button[data-v="pen"]').click();window.scrollTo(0,0);});
  $("prodT").querySelectorAll("[data-ser]").forEach(b=>b.onclick=()=>{$("sDrug").value="tz";$("sDrug").dispatchEvent(new Event("change"));document.querySelector('nav button[data-v="ser"]').click();window.scrollTo(0,0);});
 }
