@@ -158,13 +158,14 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
       <div><label for="pConc">Concentração (mg/mL)</label><input id="pConc" type="number" step="any"></div>
       <div><label for="pVol">Volume da caneta (mL)</label><input id="pVol" type="number" step="any"></div>
     </div>
-    <h2 style="margin-top:18px">2 · Calibração (obrigatória)</h2>
-    <p class="small">Gire o seletor de 0 até a dose marcada do rótulo contando os cliques. Esse número define o mg por clique <b>desta</b> caneta.</p>
+    <h2 style="margin-top:18px">2 · Referência de cliques</h2>
+    <p class="small">O número de cliques até a dose marcada já vem preenchido com a referência de cada caneta. Todas as doses são calculadas a partir dele. Para conferir, gire o seletor de 0 até a dose marcada contando os cliques: se der diferente, corrija o valor.</p>
     <div class="row">
       <div><label for="pRefMg">Dose marcada (mg)</label><input id="pRefMg" type="number" step="any"></div>
-      <div><label for="pRefCk">Cliques contados até ela</label><input id="pRefCk" type="number" step="1"></div>
+      <div><label for="pRefCk">Cliques até a dose marcada (já vem preenchido)</label><input id="pRefCk" type="number" step="1"></div>
     </div>
     <p class="small" id="pRefNote"></p>
+    <div id="pTab"></div>
     <h2 style="margin-top:18px">3 · Dose</h2>
     <div class="row">
       <div><label for="pDose">Dose desejada (mg)</label><input id="pDose" type="number" step="any" value="0.75"></div>
@@ -192,16 +193,17 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 <section class="view" id="v-prod">
 <div class="card">
   <h2>Análogos de GLP-1 e GIP/GLP-1 no Brasil</h2>
-  <p class="small" style="margin-top:-6px">Registros Anvisa e apresentações levantados em 07/11/2026. Itens marcados “conferir rótulo” têm concentração presumida igual à do produto de referência (1,34 mg/mL para semaglutida; 6 mg/mL para liraglutida) — confirme na embalagem antes de calcular.</p>
+  <p class="small" style="margin-top:-6px">Registros Anvisa e apresentações levantados em 07/11/2026 (atualizado com dulaglutida, exenatida e lixisenatida). Itens marcados “conferir rótulo” têm concentração presumida igual à do produto de referência (1,34 mg/mL para semaglutida; 6 mg/mL para liraglutida) — confirme na embalagem antes de calcular.</p>
   <div class="chips" id="prodChips"></div>
-  <div class="tw"><table class="prodt"><thead><tr><th>Produto</th><th>Tipo</th><th>Concentração · volume</th><th>Doses / apresentação</th><th>Esquema</th><th>Situação</th><th></th></tr></thead><tbody id="prodT"></tbody></table></div>
+  <div class="tw"><table class="prodt"><thead><tr><th>Produto</th><th>Tipo</th><th>Concentração · volume</th><th>Doses / apresentação</th><th>Cliques (ref.)</th><th>Esquema</th><th>Situação</th><th></th></tr></thead><tbody id="prodT"></tbody></table></div>
 </div>
 <div class="grid" style="margin-top:16px">
   <div class="card">
-    <h2>Xultophy® · unidades → componentes</h2>
-    <label for="xU">Unidades de dose prescritas (1–50)</label><input id="xU" type="number" step="1" value="16">
+    <h2>Combinações · unidades → componentes</h2>
+    <label for="xP">Produto</label><select id="xP"><option value="xul">Xultophy® (degludeca + liraglutida)</option><option value="s1040">Soliqua® 10-40 (glargina + lixisenatida)</option><option value="s3060">Soliqua® 30-60 (glargina + lixisenatida)</option></select>
+    <label for="xU">Unidades de dose prescritas</label><input id="xU" type="number" step="1" value="16">
     <dl class="kv" id="xKV"></dl>
-    <p class="small">1 unidade de dose = 1 U de insulina degludeca + 0,036 mg de liraglutida (bula Xultophy®).</p>
+    <p class="small" id="xNote"></p>
   </div>
   <div class="card">
     <h2>Pontos regulatórios (Anvisa)</h2>
@@ -225,7 +227,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
     <dt>Volume</dt><dd>mL = dose (mg) ÷ concentração</dd>
     <dt>Seringa U-100</dt><dd>UI = mL × 100 (1 UI = 0,01 mL)</dd>
     <dt>Seringa U-40</dt><dd>UI = mL × 40 (1 UI = 0,025 mL)</dd>
-    <dt>Caneta</dt><dd>mg/clique = dose marcada ÷ cliques contados</dd>
+    <dt>Caneta</dt><dd>mg/clique = dose marcada ÷ cliques de referência · cliques = dose desejada ÷ mg/clique</dd>
   </dl>
   <h2 style="margin-top:18px">Checklist antes de orientar</h2>
   <ul style="margin:0;padding-left:18px;font-size:13.5px">
@@ -250,6 +252,8 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
     <li>Anvisa. Registros de semaglutida sintética e liraglutida (DOU, mai–out/2026): Ozivy, genéricos EMS e Germed, Semaclique, Yluméc, Semavy, Owozy, Zempneo, Seemasun, Orsema, Embeltah, Sevema; Olire, Lirux e genéricos de liraglutida (08/09/2026); Wegovy® comprimido (04/11/2026). <a href="https://exame.com/ciencia/quais-canetas-emagrecedoras-foram-aprovadas-pela-anvisa-veja-as-20-novidades-de-2026/" target="_blank" rel="noopener">resumo</a></li>
     <li>Anvisa. Nota Técnica nº 200/2025 e Plano de Ação GLP-1 (06/04/2026) — manipulação e importação de IFAs agonistas de GLP-1. <a href="https://www.gov.br/anvisa/pt-br" target="_blank" rel="noopener">gov.br/anvisa</a></li>
     <li>Novo Nordisk. Bulas Wegovy® (0,68 / 1,34 / 2,27 / 3,2 mg/mL), Xultophy® (100 U/mL + 3,6 mg/mL; 1 unidade = 0,036 mg liraglutida), Victoza®/Saxenda® (6 mg/mL). Eli Lilly. Bulas Trulicity® e Mounjaro®.</li>
+    <li>AstraZeneca. Bula Byetta® (exenatida 250 mcg/mL; canetas 1,2 mL e 2,4 mL, 60 doses de 5 ou 10 mcg; Reg. MS 1.0180.0405). Descontinuação do Bydureon® BCise nos EUA (out/2024) e de Bydureon®/Byetta® na Itália (2025).</li>
+    <li>Sanofi. Bulas Lyxumia® (0,05 e 0,1 mg/mL; 14 doses de 0,2 mL) e Soliqua® (100 U/mL + 50 mcg/mL e 100 U/mL + 33 mcg/mL). Eli Lilly. Trulicity® 0,75 / 1,5 / 3 / 4,5 mg em 0,5 mL (AWARD-11).</li>
     <li>Wharton S et al. Oral semaglutide at a dose of 25 mg in adults with overweight or obesity (OASIS 4). <i>N Engl J Med</i> 2025;393:1077-1087. PMID 40934115 · doi:10.1056/NEJMoa2500969 — base do registro do Wegovy® oral.</li>
   </ol>
   <p class="small">Valores de cliques que circulam na internet divergem entre si (ex.: 18 vs. 1 clique para 0,25 mg); por isso a calculadora exige calibração na caneta do paciente.</p>
@@ -258,7 +262,7 @@ footer{text-align:center;font-size:11.5px;color:var(--muted);padding:10px 24px 3
 </section>
 </main>
 <footer>
-<b>Conversor GLP-1</b> · versão 1.1 · 07/11/2026 · criado por Dr. Luiz Felipe Louzada Farias · CRM-ES 16911.<br>
+<b>Conversor GLP-1</b> · versão 1.3 · 07/11/2026 · criado por Dr. Luiz Felipe Louzada Farias · CRM-ES 16911.<br>
 Ferramenta de apoio ao cálculo para profissionais de saúde. Não é prescrição, não substitui avaliação médica individual, bula, rótulo ou protocolo institucional, e não é dispositivo médico. O autor não se responsabiliza por doses calculadas, preparadas ou aplicadas por terceiros, nem por erros de digitação, de leitura, de produto ou de interpretação. Ao usar, você declara ter aceitado o termo de uso. Reprodução ou redistribuição do conteúdo sem autorização do autor não é permitida.
 </footer>
 <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gT">
@@ -371,7 +375,8 @@ const CAT=[
  {g:"Semaglutida SC sintética",m:"Embeltah®",e:"Biocon",t:"dial",c:1.34,v:3,d:"Conferir rótulo",esq:"Como Ozempic (DM2)",st:"Registrado 29/10/2026",ref:"Anvisa/DOU",refMg:1,conf:true},
  {g:"Semaglutida SC sintética",m:"Sevema®",e:"OneSource",t:"dial",c:1.34,v:3,d:"Conferir rótulo",esq:"Como Ozempic (DM2)",st:"Registrado 29/10/2026",ref:"Anvisa/DOU",refMg:1,conf:true},
  // --- SEMAGLUTIDA ORAL ---
- {g:"Semaglutida oral",m:"Rybelsus®",e:"Novo Nordisk",t:"oral",c:null,v:null,d:"Comprimidos 3, 7 e 14 mg (nova formulação 1,5 / 4 / 9 mg no exterior)",esq:"3 mg/dia por 30 d → 7 → 14 mg; em jejum, ≤120 mL de água, 30 min antes de comer",st:"Comercializado (DM2) · conferir formulação disponível",ref:"bula",refMg:null},
+ {g:"Semaglutida oral",m:"Rybelsus® 3 / 7 / 14 mg",e:"Novo Nordisk",t:"oral",c:null,v:null,d:"Comprimidos 3, 7 e 14 mg (formulação original)",esq:"3 mg/dia por 30 dias → 7 mg por ≥30 dias → 14 mg; em jejum, com até 120 mL de água, 30 min antes de comer, beber ou outros remédios",st:"Comercializado (DM2)",ref:"bula BR",refMg:null},
+ {g:"Semaglutida oral",m:"Rybelsus® 1,5 / 4 / 9 mg",e:"Novo Nordisk",t:"oral",c:null,v:null,d:"Nova formulação (comprimido menor): 1,5 mg ≈ 3 mg · 4 mg ≈ 7 mg · 9 mg ≈ 14 mg da original",esq:"Mesmo esquema e mesmas regras de jejum; não somar formulações",st:"Substituiu a original no exterior · conferir disponibilidade no Brasil",ref:"Novo Nordisk",refMg:null},
  {g:"Semaglutida oral",m:"Wegovy® comprimido",e:"Novo Nordisk",t:"oral",c:null,v:null,d:"Comprimidos 1,5 / 4 / 9 / 25 mg",esq:"1,5 → 4 → 9 → 25 mg/dia (OASIS 4)",st:"Registrado 04/11/2026 · ainda sem data de venda",ref:"Anvisa",refMg:null},
  // --- LIRAGLUTIDA (6 mg/mL, 3 mL, seletor em mg) ---
  {g:"Liraglutida SC",m:"Victoza®",e:"Novo Nordisk",t:"dial",c:6,v:3,d:"Seletor 0,6 / 1,2 / 1,8 mg",esq:"0,6 mg/dia por ≥1 sem → 1,2 → 1,8 mg (DM2)",st:"Comercializado",ref:"bula",refMg:0.6,mgDial:true},
@@ -382,8 +387,20 @@ const CAT=[
  {g:"Liraglutida SC",m:"Liraclick®",e:"Germed",t:"dial",c:6,v:3,d:"Conferir rótulo",esq:"Conforme indicação",st:"Registrado 2026",ref:"Anvisa",refMg:0.6,mgDial:true,conf:true},
  // --- COMBINAÇÃO ---
  {g:"Combinação insulina + GLP-1",m:"Xultophy®",e:"Novo Nordisk",t:"combo",c:3.6,v:3,d:"1 unidade de dose = 1 U degludeca + 0,036 mg liraglutida; 1–50 unidades",esq:"Início 10 U (ou 16 U se vem de insulina basal/GLP-1); titular ±2 U 2×/sem; máx 50 U",st:"Comercializado (DM2)",ref:"bula BR",refMg:null},
- // --- DULAGLUTIDA ---
- {g:"Dulaglutida SC",m:"Trulicity®",e:"Eli Lilly",t:"unica",c:null,v:0.5,d:"Canetas de dose única 0,75 e 1,5 mg/0,5 mL (3 e 4,5 mg no exterior)",esq:"0,75–1,5 mg/sem; ↑ a 3 → 4,5 mg após ≥4 sem onde disponível",st:"Comercializado (DM2)",ref:"bula BR",refMg:null},
+ {g:"Combinação insulina + GLP-1",m:"Soliqua® 10-40",e:"Sanofi",t:"combo",c:0.05,v:3,d:"1 unidade = 1 U glargina + 0,5 mcg lixisenatida; 10–40 unidades",esq:"Uma vez ao dia, até 1 h antes de uma refeição; titulação pela glicemia de jejum",st:"Registrado (DM2) · conferir disponibilidade",ref:"bula BR",refMg:null},
+ {g:"Combinação insulina + GLP-1",m:"Soliqua® 30-60",e:"Sanofi",t:"combo",c:0.033,v:3,d:"1 unidade = 1 U glargina + 0,33 mcg lixisenatida; 30–60 unidades",esq:"Uma vez ao dia, até 1 h antes de uma refeição; titulação pela glicemia de jejum",st:"Registrado (DM2) · conferir disponibilidade",ref:"bula BR",refMg:null},
+ // --- DULAGLUTIDA (semanal, dose única 0,5 mL) ---
+ {g:"Dulaglutida SC",m:"Trulicity® 0,75 mg",e:"Eli Lilly",t:"unica",c:1.5,v:0.5,d:"Caneta de dose única 0,75 mg/0,5 mL (caixa com 4)",esq:"Início/monoterapia 0,75 mg/sem",st:"Comercializado (DM2)",ref:"bula BR",refMg:null},
+ {g:"Dulaglutida SC",m:"Trulicity® 1,5 mg",e:"Eli Lilly",t:"unica",c:3,v:0.5,d:"Caneta de dose única 1,5 mg/0,5 mL",esq:"Associação 1,5 mg/sem",st:"Comercializado (DM2)",ref:"bula BR",refMg:null},
+ {g:"Dulaglutida SC",m:"Trulicity® 3 mg",e:"Eli Lilly",t:"unica",c:6,v:0.5,d:"Caneta de dose única 3 mg/0,5 mL",esq:"↑ de 1,5 para 3 mg após ≥4 sem (AWARD-11)",st:"Citado em material Lilly Brasil · conferir disponibilidade",ref:"SmPC/Lilly",refMg:null},
+ {g:"Dulaglutida SC",m:"Trulicity® 4,5 mg",e:"Eli Lilly",t:"unica",c:9,v:0.5,d:"Caneta de dose única 4,5 mg/0,5 mL",esq:"↑ de 3 para 4,5 mg após ≥4 sem; máx 4,5 mg/sem",st:"Citado em material Lilly Brasil · conferir disponibilidade",ref:"SmPC/Lilly",refMg:null},
+ // --- EXENATIDA ---
+ {g:"Exenatida SC",m:"Byetta® 5 mcg",e:"AstraZeneca",t:"fixa",c:0.25,v:1.2,d:"60 doses fixas de 5 mcg (20 µL)",esq:"5 mcg 2×/dia até 60 min antes do café e do jantar, por ≥1 mês",st:"Registro MS 1.0180.0405 · descontinuado em vários países (2024–25) · conferir disponibilidade",ref:"bula BR",refMg:0.005},
+ {g:"Exenatida SC",m:"Byetta® 10 mcg",e:"AstraZeneca",t:"fixa",c:0.25,v:2.4,d:"60 doses fixas de 10 mcg (40 µL)",esq:"10 mcg 2×/dia após 1 mês com 5 mcg",st:"Registro MS 1.0180.0405 · descontinuado em vários países (2024–25) · conferir disponibilidade",ref:"bula BR",refMg:0.01},
+ {g:"Exenatida SC",m:"Bydureon® 2 mg (liberação prolongada)",e:"AstraZeneca",t:"unica",c:null,v:null,d:"2 mg em dose única semanal (pó + diluente ou autoinjetor)",esq:"2 mg 1×/semana, a qualquer hora",st:"Descontinuado nos EUA (out/2024) e na Europa (2025) · conferir disponibilidade no Brasil",ref:"FDA/AIFA",refMg:null},
+ // --- LIXISENATIDA ---
+ {g:"Lixisenatida SC",m:"Lyxumia® 10 mcg",e:"Sanofi",t:"fixa",c:0.05,v:3,d:"14 doses fixas de 10 mcg (0,2 mL)",esq:"10 mcg/dia por 14 dias",st:"Registrado (DM2) · retirado da UE · conferir disponibilidade",ref:"bula BR",refMg:0.01},
+ {g:"Lixisenatida SC",m:"Lyxumia® 20 mcg",e:"Sanofi",t:"fixa",c:0.1,v:3,d:"14 doses fixas de 20 mcg (0,2 mL)",esq:"20 mcg/dia (manutenção), até 1 h antes de uma refeição",st:"Registrado (DM2) · retirado da UE · conferir disponibilidade",ref:"bula BR",refMg:0.02},
  // --- TIRZEPATIDA ---
  {g:"Tirzepatida SC",m:"Mounjaro® dose única",e:"Eli Lilly",t:"unica",c:null,v:0.5,d:"2,5 / 5 / 7,5 / 10 / 12,5 / 15 mg em 0,5 mL (caixa com 4)",esq:"2,5 mg/sem por 4 sem; +2,5 mg a cada ≥4 sem",st:"Comercializado (DM2 e obesidade)",ref:"bula BR",refMg:null},
  {g:"Tirzepatida SC",m:"Mounjaro® KwikPen 2,5 mg",e:"Eli Lilly",t:"fixa",c:4.17,v:2.4,d:"4 doses de 0,6 mL",esq:"Sem 1–4",st:"Registrado 18/03/2026 (RE 1.041)",ref:"bula/Anvisa",refMg:2.5},
@@ -395,12 +412,20 @@ const CAT=[
  {g:"Semaglutida SC",m:"Semaglutida manipulada",e:"—",t:"frasco",c:null,v:null,d:"—",esq:"—",st:"PROIBIDA pela Anvisa (manipulação de semaglutida vedada desde ago/2025)",ref:"Anvisa",refMg:null},
  {g:"Tirzepatida SC",m:"Tirzepatida manipulada",e:"Farmácia magistral estéril",t:"frasco",c:null,v:null,d:"Frasco/ampola — concentração do rótulo do lote",esq:"Conforme prescrição individual",st:"Permitida só em farmácia estéril, com prescrição individual (NT Anvisa 200/2025); sob fiscalização intensificada em 2026",ref:"Anvisa",refMg:null}
 ];
+// Referência de cliques por dose marcada (não publicada pelos fabricantes; derivada do volume da dose e da mecânica da caneta)
+const CKREF={"Ozempic®":37,"Ozempic® 1 mg":74,"Ozempic® 2 mg":74,"Wegovy® 0,25 mg":37,"Wegovy® 0,5 mg":37,"Wegovy® 1 mg":74,"Wegovy® 1,7 mg":75,"Wegovy® 2,4 mg":75};
+CAT.forEach(p=>{if(p.t!=="dial"&&p.t!=="fixa")return;
+ if(/KwikPen/.test(p.m)){p.ck=60;p.ckSrc="KwikPen: 60 cliques = 1 dose cheia (0,6 mL) em todas as concentrações — referência amplamente citada; a Lilly não publica contagem de cliques.";return;}
+ if(p.mgDial){p.ck=null;p.ckSrc="Caneta com seletor graduado em mg: a bula orienta NÃO contar cliques (o clique muda perto do fim da caneta). Use o mostrador.";return;}
+ if(/Byetta|Lyxumia/.test(p.m)){p.ck=null;p.ckSrc="Caneta de dose fixa por acionamento: não permite fracionar por cliques.";return;}
+ if(/Semaglutida/.test(p.g)){p.ck=CKREF[p.m]??(p.refMg&&p.c?Math.round(p.refMg/p.c/0.01*0.993):null);p.ckSrc="FlexTouch e similares: 1 clique ≈ 0,01 mL (volume da dose na bula ÷ 0,01 mL). Ex.: Ozempic® 1,34 mg/mL — 1 mg = 0,74 mL = 74 cliques. Referência não oficial; nas sintéticas, confirmar o mecanismo da caneta.";}
+});
 const TLAB={dial:"Caneta multidose · seletor",fixa:"Multidose · dose fixa",unica:"Dose única",oral:"Oral",combo:"Combinação (unidades)",frasco:"Frasco (seringa)"};
 
-const PENS=CAT.filter(p=>p.t==="dial"||p.t==="fixa").map((p,k)=>({id:"p"+k,nome:p.m+" · "+p.e+(p.conf?" (conferir rótulo)":""),c:p.c,v:p.v,refMg:p.refMg,refCk:"",max:p.t==="fixa"?p.refMg:null,fixa:p.t==="fixa",mgDial:!!p.mgDial,grp:p.g,nota:(p.t==="fixa"?"Multidose de dose fixa ("+p.d+"). ":"")+(p.mgDial?"Seletor graduado em mg: use a marcação da caneta; cliques só como conferência. ":"")+(p.conf?"Concentração presumida — confira no rótulo. ":"")+"Esquema: "+p.esq}));
+const PENS=CAT.filter(p=>p.t==="dial"||p.t==="fixa").map((p,k)=>({id:"p"+k,nome:p.m+" · "+p.e+(p.conf?" (conferir rótulo)":""),c:p.c,v:p.v,refMg:p.refMg,refCk:p.ck??"",ckSrc:p.ckSrc||"",max:p.t==="fixa"?p.refMg:null,fixa:p.t==="fixa",mgDial:!!p.mgDial,grp:p.g,nota:(p.t==="fixa"?"Multidose de dose fixa ("+p.d+"). ":"")+(p.mgDial?"Seletor graduado em mg: use a marcação da caneta; cliques só como conferência. ":"")+(p.conf?"Concentração presumida — confira no rótulo. ":"")+"Esquema: "+p.esq}));
 PENS.push({id:"cus",nome:"Outra caneta (personalizada)",c:"",v:"",refMg:"",refCk:"",max:null,nota:"Informe concentração, volume e calibração."});
 $("pPen").innerHTML=[...new Set(PENS.map(p=>p.grp||"Outra"))].map(g=>`<optgroup label="${g}">`+PENS.filter(p=>(p.grp||"Outra")===g).map(p=>`<option value="${p.id}">${p.nome}</option>`).join("")+`</optgroup>`).join("");
-function setPen(){const p=PENS.find(x=>x.id===$("pPen").value);$("pConc").value=p.c;$("pVol").value=p.v;$("pRefMg").value=p.refMg;$("pRefCk").value=p.refCk;$("pRefNote").textContent=p.nota;calcP();}
+function setPen(){const p=PENS.find(x=>x.id===$("pPen").value);$("pConc").value=p.c;$("pVol").value=p.v;$("pRefMg").value=p.refMg;$("pRefCk").value=p.refCk;$("pRefNote").innerHTML=(p.refCk!==""?`<b>Referência de fábrica: ${p.refCk} cliques = ${f(p.refMg,3)} mg</b> (dose marcada). `:"")+(p.ckSrc?p.ckSrc+" ":"")+p.nota+(p.refCk!==""?" Se a caneta do paciente contar diferente, ajuste o número de cliques acima.":"");calcP();}
 $("pPen").addEventListener("change",setPen);
 let pLast="mg";$("pDose").addEventListener("input",()=>{pLast="mg";calcP();});$("pClk").addEventListener("input",()=>{pLast="ck";calcP();});
 ["pConc","pVol","pRefMg","pRefCk","pUsed"].forEach(id=>$(id).addEventListener("input",calcP));
@@ -420,7 +445,9 @@ function calcP(){const p=PENS.find(x=>x.id===$("pPen").value),c=num("pConc"),v=n
  if(/semaglutida/i.test(p.grp||""))al.push(["note","Semaglutida: confira na bula do produto a validade após o 1º uso e a conservação (versões sintéticas exigem geladeira 2–8 °C também durante o uso)."]);
  al.push(["note","Arredondado ao clique inteiro. Registre no prontuário a calibração, a decisão off-label e a orientação dada."]);
  $("qAlerts").innerHTML=al.map(a=>`<div class="${a[0]}">${a[1]}</div>`).join("");
- pSummary=`${p.nome}\nDose: ${f(mg,3)} mg = ${ck} cliques (calibração: ${f(rm)} mg = ${rc} cliques nesta caneta)\nUso fora da bula; dose por cliques não validada pelo fabricante.`;
+ const DS={"Semaglutida SC":[0.1,0.125,0.25,0.375,0.5,0.75,1,1.25,1.5,1.7,2,2.4],"Semaglutida SC sintética":[0.1,0.125,0.25,0.375,0.5,0.75,1],"Tirzepatida SC":[1,1.25,2,2.5,3.75,5,6.25,7.5,10,12.5,15]}[p.grp];
+ $("pTab").innerHTML=(DS&&isFinite(mgck)&&mgck>0)?`<table style="margin-top:8px"><thead><tr><th>Dose (mg)</th><th>Cliques</th><th>Entrega real (mg)</th></tr></thead><tbody>${DS.filter(d=>d<=rm+1e-9).map(d=>{const k=Math.round(d/mgck);return `<tr${Math.abs(d-mg)<1e-9?' class="hl"':''}><td class="num">${f(d,3)}</td><td class="num">${k}</td><td class="num">${f(k*mgck,3)}</td></tr>`;}).join("")}</tbody></table><p class="small">Doses até o máximo que esta caneta entrega por aplicação.</p>`:"";
+ pSummary=`${p.nome}\nDose: ${f(mg,3)} mg = ${ck} cliques (referência: ${f(rm)} mg = ${rc} cliques nesta caneta)\nUso fora da bula; dose por cliques não validada pelo fabricante.`;
 }
 $("copyP").onclick=()=>copy(pSummary+SUF,"copyMsgP");
 
@@ -430,14 +457,15 @@ function renderProd(){const gs=["Todos",...new Set(CAT.map(p=>p.g))];
  $("prodChips").innerHTML=gs.map(g=>`<button class="${g===prodF?'on':''}" data-g="${g}">${g}</button>`).join("");
  $("prodChips").querySelectorAll("button").forEach(b=>b.onclick=()=>{prodF=b.dataset.g;renderProd();});
  $("prodT").innerHTML=CAT.filter(p=>prodF==="Todos"||p.g===prodF).map((p,i)=>{const k=CAT.indexOf(p);const pi=PENS.findIndex(x=>x.nome.startsWith(p.m+" · "+p.e));
-  const conc=p.c?`${f(p.c,2)} ${p.t==="combo"?"mg/mL lira + 100 U/mL":"mg/mL"}${p.v?` · ${f(p.v,2)} mL`:""}${p.c&&p.v&&p.t!=="combo"?` (${f(p.c*p.v,2)} mg)`:""}`:(p.v?`${f(p.v,2)} mL/caneta`:"—");
+  const conc=p.c?`${f(p.c,3)} ${p.t==="combo"?(/Soliqua/.test(p.m)?"mg/mL lixi + 100 U/mL":"mg/mL lira + 100 U/mL"):"mg/mL"}${p.v?` · ${f(p.v,2)} mL`:""}${p.c&&p.v&&p.t!=="combo"?` (${f(p.c*p.v,2)} mg)`:""}`:(p.v?`${f(p.v,2)} mL/caneta`:"—");
   const warn=/PROIBIDA|ainda sem|Conferir|aguarda/i.test(p.st)||p.conf;
-  return `<tr><td><span class="mk">${p.m}</span><br><span class="small">${p.e}</span></td><td><span class="tag2">${TLAB[p.t]}</span></td><td>${conc}${p.conf?'<br><span class="tag2 warn">conferir rótulo</span>':''}</td><td>${p.d}</td><td class="small">${p.esq}</td><td class="small"><span class="${warn?'tag2 warn':''}">${p.st}</span></td><td>${pi>=0?`<button class="linkb" data-pi="${pi}">Calcular</button>`:(p.t==="frasco"&&!/PROIBIDA/.test(p.st)?`<button class="linkb" data-ser="1">Seringa</button>`:"")}</td></tr>`;}).join("");
+  return `<tr><td><span class="mk">${p.m}</span><br><span class="small">${p.e}</span></td><td><span class="tag2">${TLAB[p.t]}</span></td><td>${conc}${p.conf?'<br><span class="tag2 warn">conferir rótulo</span>':''}</td><td>${p.d}</td><td class="num">${p.ck?`${p.ck} = ${f(p.refMg,3)} mg`:(p.t==="dial"||p.t==="fixa"?'<span class="small">não contar</span>':"—")}</td><td class="small">${p.esq}</td><td class="small"><span class="${warn?'tag2 warn':''}">${p.st}</span></td><td>${pi>=0?`<button class="linkb" data-pi="${pi}">Calcular</button>`:(p.t==="frasco"&&!/PROIBIDA/.test(p.st)?`<button class="linkb" data-ser="1">Seringa</button>`:"")}</td></tr>`;}).join("");
  $("prodT").querySelectorAll("[data-pi]").forEach(b=>b.onclick=()=>{$("pPen").value=PENS[+b.dataset.pi].id;setPen();document.querySelector('nav button[data-v="pen"]').click();window.scrollTo(0,0);});
  $("prodT").querySelectorAll("[data-ser]").forEach(b=>b.onclick=()=>{$("sDrug").value="tz";$("sDrug").dispatchEvent(new Event("change"));document.querySelector('nav button[data-v="ser"]').click();window.scrollTo(0,0);});
 }
-function calcX(){const u=num("xU");$("xKV").innerHTML=`<dt>Insulina degludeca</dt><dd>${f(u,0)} U</dd><dt>Liraglutida</dt><dd>${f(u*0.036,3)} mg</dd><dt>Volume</dt><dd>${f(u/100,2)} mL</dd>`+(u>50?`<dt></dt><dd style="color:var(--alerta)">Acima da dose máxima diária (50 U = 1,8 mg de liraglutida)</dd>`:"");}
-$("xU").addEventListener("input",calcX);
+const COMB={xul:{ins:"Insulina degludeca",glp:"Liraglutida",per:0.036,un:"mg",dec:3,min:1,max:50,note:"1 unidade = 1 U de degludeca + 0,036 mg de liraglutida; máx 50 U/dia (= 1,8 mg). Bula Xultophy®."},s1040:{ins:"Insulina glargina",glp:"Lixisenatida",per:0.5,un:"mcg",dec:1,min:10,max:40,note:"1 unidade = 1 U de glargina + 0,5 mcg de lixisenatida; faixa da caneta 10–40 U. Bula Soliqua®."},s3060:{ins:"Insulina glargina",glp:"Lixisenatida",per:0.33,un:"mcg",dec:1,min:30,max:60,note:"1 unidade = 1 U de glargina + 0,33 mcg de lixisenatida; faixa da caneta 30–60 U. Bula Soliqua®."}};
+function calcX(){const k=COMB[$("xP").value],u=num("xU");$("xNote").textContent=k.note;$("xKV").innerHTML=`<dt>${k.ins}</dt><dd>${f(u,0)} U</dd><dt>${k.glp}</dt><dd>${f(u*k.per,k.dec)} ${k.un}</dd><dt>Volume</dt><dd>${f(u/100,2)} mL</dd>`+(u>k.max||u<k.min?`<dt></dt><dd style="color:var(--alerta)">Fora da faixa desta caneta (${k.min}–${k.max} U)</dd>`:"");}
+$("xU").addEventListener("input",calcX);$("xP").addEventListener("change",calcX);
 $("pPen").value="p1";setPen();calcS();renderProd();calcX();
 </script>
 </body>
