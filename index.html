@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" class="js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dr. Luiz Felipe Farias | Médico em Vitória-ES</title>
-<meta name="description" content="Médico em Vitória-ES (CRM-ES 16911). Acompanhamento de executivos e atletas amadores: energia, sono, composição corporal e longevidade. Consulta presencial e on-line.">
+<meta name="description" content="Médico em Vitória-ES, CRM-ES 16911. Atendo executivos, empresários e atletas amadores à noite e aos sábados, no consultório e on-line.">
 <link rel="canonical" href="https://drluizfelipefarias.com.br/">
 <meta property="og:title" content="Dr. Luiz Felipe Farias | Médico em Vitória-ES">
-<meta property="og:description" content="Acompanhamento de executivos e atletas amadores: energia, sono, composição corporal e longevidade. Presencial em Vitória-ES e on-line.">
+<meta property="og:description" content="Consulta à noite e aos sábados na Enseada do Suá, em Vitória, e on-line.">
 <meta property="og:url" content="https://drluizfelipefarias.com.br/">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#23361F">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
  "@context":"https://schema.org",
  "@type":"Physician",
  "name":"Dr. Luiz Felipe Farias",
- "description":"Médico em Vitória-ES. Acompanhamento de executivos e atletas amadores: energia, sono, composição corporal e longevidade.",
+ "description":"Médico em Vitória-ES. Atendimento de executivos, empresários e atletas amadores, presencial e on-line.",
  "telephone":"+55-27-99983-7159",
  "address":{"@type":"PostalAddress","streetAddress":"Av. Nossa Senhora dos Navegantes, 755, Sala 803, Ed. Palácio da Praia","addressLocality":"Vitória","addressRegion":"ES","postalCode":"29050-335","addressCountry":"BR"},
  "openingHours":["Mo-Fr 19:00-22:30","Sa 09:00-15:00"],
@@ -27,146 +28,408 @@
 }
 </script>
 <style>
-:root{--verde:#23361F;--creme:#F4EEE7;--terra:#BF6A32;--areia:#B89E85;--grafite:#363533}
+:root{
+ --noite:#0C130B;--fundo:#111A0F;--verde:#23361F;--verde2:#2C4527;
+ --creme:#F4EEE7;--terra:#BF6A32;--terra2:#A95C2A;--areia:#B89E85;--grafite:#363533;
+ --texto:#CFC8BE;--apagado:#9A9387;--linha:rgba(184,158,133,.16)
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Poppins',system-ui,sans-serif;font-weight:300;color:var(--verde);background:var(--creme);line-height:1.65}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins',system-ui,sans-serif;font-weight:200;font-size:16px;line-height:1.75;color:var(--texto);background:var(--noite);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
 a{color:inherit}
-.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
-header{position:sticky;top:0;background:rgba(244,238,231,.95);backdrop-filter:blur(6px);border-bottom:1px solid rgba(184,158,133,.35);z-index:5}
-header .wrap{display:flex;justify-content:space-between;align-items:center;height:68px}
-.marca{font-weight:500;letter-spacing:.18em;font-size:13px;text-transform:uppercase}
-nav a{text-decoration:none;font-size:14px;margin-left:24px}
-nav a:hover{color:var(--terra)}
-.btn{display:inline-block;border:1.5px solid currentColor;border-radius:999px;padding:13px 30px;text-decoration:none;font-weight:500;font-size:15px;transition:.2s}
-.btn:hover{background:var(--terra);border-color:var(--terra);color:var(--creme)}
-.hero{background:var(--verde);color:var(--creme);padding:120px 0 110px}
-.traco{width:44px;height:2px;background:var(--areia);margin-bottom:28px}
-.hero h1{font-weight:300;font-size:clamp(34px,5.4vw,58px);line-height:1.15;max-width:760px}
-.hero h1 strong{font-weight:500;color:var(--areia)}
-.hero p{margin:28px 0 40px;max-width:600px;font-size:18px;opacity:.9}
-.id{font-size:14px;letter-spacing:.06em;opacity:.8;margin-top:36px}
-section{padding:96px 0}
-h2{font-weight:300;font-size:clamp(28px,3.6vw,40px);line-height:1.2;margin-bottom:40px;max-width:720px}
-h2 strong{font-weight:500;color:var(--terra)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px}
-.card{border-top:1px solid var(--areia);padding-top:22px}
-.card h3{font-weight:500;font-size:17px;margin-bottom:8px}
-.lista li{list-style:none;padding:16px 0;border-bottom:1px solid rgba(184,158,133,.5);font-size:17px}
-.passos{counter-reset:p}
-.passo{counter-increment:p;display:flex;gap:24px;padding:22px 0;border-bottom:1px solid rgba(184,158,133,.5)}
-.passo:before{content:counter(p,decimal-leading-zero);font-weight:500;color:var(--terra);font-size:22px;min-width:40px}
-.passo h3{font-weight:500;font-size:17px}
-.escuro{background:var(--verde);color:var(--creme)}
-.escuro h2 strong{color:var(--areia)}
-.escuro .card{border-color:rgba(184,158,133,.6)}
-.cv{margin-top:28px;font-size:15px;opacity:.9}
-.cv b{font-weight:500}
-.onde{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:40px}
-.onde h3{font-weight:500;margin-bottom:10px}
-details{border-bottom:1px solid rgba(184,158,133,.5);padding:20px 0}
-summary{cursor:pointer;font-weight:500;font-size:17px;list-style:none}
-summary::-webkit-details-marker{display:none}
-summary:after{content:"+";float:right;color:var(--terra)}
-details[open] summary:after{content:"–"}
-details p{margin-top:12px}
-.cta{text-align:center}
-.cta h2{margin:0 auto 32px}
-footer{background:var(--grafite);color:var(--creme);padding:40px 0;font-size:13px;opacity:.95}
-footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between}
-.zap{position:fixed;right:20px;bottom:20px;background:var(--terra);color:var(--creme);border-radius:999px;padding:14px 22px;text-decoration:none;font-weight:500;font-size:14px;box-shadow:0 6px 20px rgba(0,0,0,.18);z-index:6}
-@media(max-width:700px){nav a:not(.btn){display:none}section{padding:72px 0}.hero{padding:88px 0 80px}}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+.disp{font-family:'Anton',Impact,sans-serif;font-weight:400;text-transform:uppercase;color:var(--creme);letter-spacing:.012em;line-height:1.04}
+.disp em{font-style:normal;color:var(--terra)}
+.rot{display:block;font-size:12px;font-weight:400;letter-spacing:.4em;text-transform:uppercase;color:var(--terra);margin-bottom:22px}
+.leve{font-weight:200;color:var(--apagado)}
+
+/* botões */
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--terra);color:#fff;text-decoration:none;font-weight:500;font-size:14px;letter-spacing:.02em;padding:17px 32px;border-radius:5px;transition:background .3s,transform .3s}
+.btn:hover{background:var(--terra2);transform:translateY(-2px)}
+.btn svg{width:18px;height:18px;fill:currentColor}
+.btn-linha{background:transparent;border:1px solid rgba(244,238,231,.35);color:var(--creme)}
+.btn-linha:hover{background:rgba(244,238,231,.08);border-color:var(--creme)}
+
+/* topo fixo, encolhe ao rolar */
+.topo{position:fixed;inset:0 0 auto 0;z-index:20;transition:background .4s,padding .4s,border-color .4s;border-bottom:1px solid transparent;padding:14px 0}
+.topo.rolou{background:rgba(12,19,11,.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-color:var(--linha);padding:2px 0}
+.topo .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+.marca{text-decoration:none;color:var(--creme);line-height:1.15}
+.marca b{display:block;font-weight:500;font-size:16px;letter-spacing:.14em;text-transform:uppercase}
+.marca small{display:block;font-size:11px;letter-spacing:.22em;color:var(--areia);margin-top:3px}
+.topo nav{display:flex;align-items:center;gap:30px}
+.topo nav a{text-decoration:none;font-size:12px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:var(--creme);position:relative}
+.topo nav a:not(.btn):after{content:"";position:absolute;left:0;bottom:-6px;width:0;height:1px;background:var(--terra);transition:width .3s}
+.topo nav a:not(.btn):hover:after{width:100%}
+.topo nav .btn{padding:12px 20px;font-size:12px;letter-spacing:.08em;text-transform:none}
+
+/* abertura */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;overflow:hidden;background:var(--noite)}
+.hero .wrap{position:relative;z-index:2;width:100%;padding-top:130px;padding-bottom:90px;display:grid;grid-template-columns:1.25fr .75fr;gap:70px;align-items:center}
+.hero-txt{max-width:620px}
+.hero-foto{position:relative;justify-self:end;width:100%;max-width:400px}
+.hero-foto:before{content:"";position:absolute;inset:22px -22px -22px 22px;border:1px solid var(--terra);border-radius:6px;opacity:.55}
+.hero-foto .q{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 30px 60px rgba(0,0,0,.45)}
+.hero-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;animation:aproxima 14s ease-out forwards}
+@keyframes aproxima{from{transform:scale(1.1)}to{transform:scale(1)}}
+.hero h1{font-size:clamp(44px,5.6vw,78px)}
+.hero p.sub{margin-top:28px;font-size:18px;max-width:520px;color:#DDD5CA}
+.hero .acoes{display:flex;flex-wrap:wrap;gap:14px;margin-top:40px}
+.hero .assin{margin-top:46px;padding-top:22px;border-top:1px solid var(--linha);display:flex;gap:34px;flex-wrap:wrap;font-size:13px;color:var(--areia)}
+.hero .assin b{display:block;font-weight:500;color:var(--creme);font-size:14px}
+.desce{position:absolute;left:50%;bottom:26px;z-index:2;width:1px;height:54px;background:rgba(244,238,231,.15);overflow:hidden}
+.desce:after{content:"";position:absolute;left:0;top:-40%;width:1px;height:40%;background:var(--terra);animation:pinga 2.2s ease-in-out infinite}
+@keyframes pinga{to{top:110%}}
+
+section{padding:130px 0;position:relative}
+
+/* quem chega até mim */
+.quem{background:var(--fundo)}
+.quem .topo-sec{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+.quem h2{font-size:clamp(40px,4.8vw,66px)}
+.quem .topo-sec p{font-size:17px;max-width:460px}
+.perfis{border-top:1px solid var(--linha)}
+.perfil{display:grid;grid-template-columns:110px 1fr 1.3fr;gap:40px;padding:38px 0;border-bottom:1px solid var(--linha);align-items:baseline;transition:background .4s,padding .4s}
+.perfil:hover{background:rgba(244,238,231,.025);padding-left:18px}
+.perfil .n{font-family:'Anton',sans-serif;font-size:15px;letter-spacing:.2em;color:var(--terra)}
+.perfil h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;color:var(--creme);font-size:28px;letter-spacing:.02em;line-height:1.1}
+.perfil p{font-size:16px}
+
+/* frases do consultório */
+.frases{background:var(--verde);overflow:hidden}
+.frases .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px}
+.frases h2{font-size:clamp(38px,4.4vw,60px)}
+.frases .apoio{margin-top:26px;color:#D8D0C4;font-size:16px;max-width:360px}
+.falas{list-style:none}
+.falas li{font-size:clamp(20px,2.1vw,26px);font-weight:300;color:var(--creme);line-height:1.45;padding:26px 0 26px 46px;border-bottom:1px solid rgba(244,238,231,.12);position:relative}
+.falas li:before{content:"“";position:absolute;left:0;top:14px;font-family:'Anton',sans-serif;font-size:54px;color:var(--terra);line-height:1}
+.falas li:last-child{border-bottom:0}
+
+/* consulta, etapas */
+.consulta{background:var(--noite)}
+.consulta .cab{display:flex;justify-content:space-between;align-items:end;gap:40px;flex-wrap:wrap;margin-bottom:80px}
+.consulta h2{font-size:clamp(46px,6.4vw,92px)}
+.consulta .cab p{max-width:380px;font-size:16px}
+.trilha{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;position:relative}
+.trilha:before{content:"";position:absolute;left:0;right:0;top:27px;height:1px;background:var(--linha)}
+.trilha .barra{position:absolute;left:0;top:27px;height:1px;width:0;background:var(--terra);transition:width 2.2s cubic-bezier(.25,.7,.2,1)}
+.trilha.vis .barra{width:100%}
+.etapa{position:relative}
+.etapa .bola{width:55px;height:55px;border-radius:50%;background:var(--noite);border:1px solid var(--terra);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;color:var(--terra);font-size:20px;position:relative;z-index:1;transition:background .4s,color .4s}
+.etapa:hover .bola{background:var(--terra);color:#fff}
+.etapa small{display:block;margin-top:28px;font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--areia);font-weight:400}
+.etapa h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;font-size:24px;color:var(--terra);letter-spacing:.03em;margin:6px 0 12px;line-height:1.1}
+.etapa p{font-size:15px}
+.consulta .rodape-sec{margin-top:80px;display:flex;align-items:center;gap:26px;flex-wrap:wrap}
+.consulta .rodape-sec p{font-size:15px;color:var(--apagado)}
+
+.metodo{background:var(--fundo);overflow:hidden}
+.metodo .grande{font-family:'Anton',sans-serif;font-size:clamp(90px,17vw,250px);line-height:.85;color:transparent;-webkit-text-stroke:1px rgba(191,106,50,.55);letter-spacing:.04em;white-space:nowrap;margin-bottom:-.12em;user-select:none}
+.metodo .cab2{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:end;margin:40px 0 70px}
+.metodo h2{font-size:clamp(40px,4.6vw,64px)}
+.metodo .cab2 p{font-size:17px}
+.metodo .cab2 p+p{margin-top:16px}
+.acoes4{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--linha)}
+.acoes4>div{padding:34px 28px 10px 0;border-right:1px solid var(--linha);margin-right:28px}
+.acoes4>div:last-child{border-right:0;margin-right:0}
+.acoes4 h3{font-family:'Anton',sans-serif;font-weight:400;text-transform:uppercase;color:var(--creme);font-size:22px;letter-spacing:.03em;margin-bottom:10px;line-height:1.15}
+.acoes4 p{font-size:15px}
+@media(max-width:960px){.metodo .cab2{grid-template-columns:1fr;gap:24px}.acoes4{grid-template-columns:1fr}.acoes4>div{border-right:0;margin-right:0;border-bottom:1px solid var(--linha);padding:26px 0}}
+
+/* sobre */
+.sobre{background:var(--fundo)}
+.sobre .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:80px;align-items:center}
+.moldura{position:relative;max-width:380px;justify-self:center;width:100%}
+.moldura:before{content:"";position:absolute;inset:26px -26px -26px 26px;border:1px solid var(--terra);border-radius:6px;opacity:.55}
+.moldura .foto{position:relative;border-radius:6px;overflow:hidden;aspect-ratio:4/5}
+.moldura .foto img{width:100%;height:100%;object-fit:cover;object-position:50% 50%;transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.moldura:hover .foto img{transform:scale(1.04)}
+.sobre h2{font-size:clamp(40px,4.6vw,64px);margin-bottom:30px}
+.sobre p{font-size:17px}
+.sobre p+p{margin-top:18px}
+.registro{margin-top:36px;padding-top:24px;border-top:1px solid var(--linha);font-size:14px;color:var(--areia)}
+.registro b{display:block;color:var(--creme);font-weight:500;font-size:15px;margin-bottom:2px}
+
+/* onde */
+.onde{background:var(--noite)}
+.onde h2{font-size:clamp(40px,4.8vw,66px);margin-bottom:60px}
+.blocos{display:grid;grid-template-columns:1.2fr 1fr 1fr;border-top:1px solid var(--linha);border-left:1px solid var(--linha)}
+.blocos>div{padding:40px 36px;border-right:1px solid var(--linha);border-bottom:1px solid var(--linha);transition:background .4s}
+.blocos>div:hover{background:rgba(244,238,231,.03)}
+.blocos h3{font-size:12px;font-weight:400;letter-spacing:.32em;text-transform:uppercase;color:var(--terra);margin-bottom:16px}
+.blocos p{color:var(--creme);font-weight:300;font-size:16px}
+.blocos a.lk{display:inline-block;margin-top:18px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra);text-decoration:none;border-bottom:1px solid var(--terra);padding-bottom:3px}
+
+/* dúvidas */
+.duvidas{background:var(--fundo)}
+.duvidas .wrap{display:grid;grid-template-columns:.75fr 1.25fr;gap:70px}
+.duvidas h2{font-size:clamp(40px,4.6vw,62px)}
+.item{border-bottom:1px solid var(--linha)}
+.item:first-child{border-top:1px solid var(--linha)}
+.item button{all:unset;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;width:100%;padding:26px 0;font-family:'Poppins',sans-serif;font-weight:400;font-size:17px;color:var(--creme)}
+.item button:focus-visible{outline:1px solid var(--terra);outline-offset:4px}
+.item .mais{flex:0 0 26px;height:26px;position:relative}
+.item .mais:before,.item .mais:after{content:"";position:absolute;left:50%;top:50%;width:14px;height:1px;background:var(--terra);transform:translate(-50%,-50%);transition:transform .35s}
+.item .mais:after{transform:translate(-50%,-50%) rotate(90deg)}
+.item.aberto .mais:after{transform:translate(-50%,-50%) rotate(0)}
+.item .resp{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.item.aberto .resp{grid-template-rows:1fr}
+.item .resp>div{overflow:hidden}
+.item .resp p{padding:0 50px 28px 0;font-size:16px}
+
+/* chamada final */
+.final{position:relative;padding:150px 0;overflow:hidden;background:var(--verde)}
+.final .wrap{position:relative;text-align:center}
+.final h2{font-size:clamp(44px,6vw,86px)}
+.final p{margin:22px auto 0;max-width:520px;font-size:17px;color:#E2DBD1}
+.final .btn{margin-top:40px}
+
+footer{background:var(--noite);border-top:1px solid var(--linha);padding:34px 0;font-size:13px;color:var(--apagado)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:space-between}
+footer b{color:var(--creme);font-weight:400}
+
+.zap{position:fixed;right:20px;bottom:20px;z-index:30;width:58px;height:58px;border-radius:50%;background:var(--terra);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.4);transition:transform .3s,background .3s;opacity:0;transform:translateY(20px);pointer-events:none}
+.zap.mostra{opacity:1;transform:none;pointer-events:auto}
+.zap:hover{background:var(--terra2);transform:scale(1.06)}
+.zap svg{width:28px;height:28px;fill:#fff}
+
+/* animações de entrada (mesma lógica do fadeIn/fadeInUp/Left/Right da referência) */
+.js .an{opacity:0;animation-duration:1.25s;animation-fill-mode:both;animation-timing-function:cubic-bezier(.2,.65,.25,1)}
+.js .an.vis{opacity:1}
+.js .an.up.vis{animation-name:fadeInUp}
+.js .an.esq.vis{animation-name:fadeInLeft}
+.js .an.dir.vis{animation-name:fadeInRight}
+.js .an.fade.vis{animation-name:fadeIn}
+.d1{animation-delay:.15s!important}.d2{animation-delay:.3s!important}.d3{animation-delay:.45s!important}.d4{animation-delay:.6s!important}.d5{animation-delay:.75s!important}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes fadeInUp{from{opacity:0;transform:translate3d(0,70px,0)}to{opacity:1;transform:none}}
+@keyframes fadeInLeft{from{opacity:0;transform:translate3d(-80px,0,0)}to{opacity:1;transform:none}}
+@keyframes fadeInRight{from{opacity:0;transform:translate3d(80px,0,0)}to{opacity:1;transform:none}}
+/* título que sobe linha por linha */
+.linhas .l{display:block;overflow:hidden}
+.linhas .l>span{display:block}
+.js .linhas .l>span{transform:translateY(105%);transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.js .linhas.vis .l>span{transform:none}
+.linhas.vis .l:nth-child(2)>span{transition-delay:.12s}
+.linhas.vis .l:nth-child(3)>span{transition-delay:.24s}
+.linhas.vis .l:nth-child(4)>span{transition-delay:.36s}
+
+@media(prefers-reduced-motion:reduce){
+ .js .an,.js .linhas .l>span{animation:none!important;opacity:1!important;transform:none!important;transition:none!important}
+ .hero-foto img{animation:none}
+}
+
+@media(max-width:960px){
+ .wrap{padding:0 22px}
+ section{padding:90px 0}
+ .topo nav a:not(.btn){display:none}
+ .hero .wrap{grid-template-columns:1fr;gap:50px;padding-top:110px;padding-bottom:70px}
+ .hero-foto{justify-self:start;max-width:280px;margin-left:0}
+ .desce{display:none}
+ .quem .topo-sec,.frases .wrap,.sobre .wrap,.duvidas .wrap{grid-template-columns:1fr;gap:36px}
+ .perfil{grid-template-columns:1fr;gap:8px}
+ .trilha{grid-template-columns:1fr;gap:44px;padding-left:0}
+ .trilha:before,.trilha .barra{left:27px;right:auto;top:0;bottom:0;width:1px;height:auto}
+ .trilha .barra{height:0;transition:height 2.2s cubic-bezier(.25,.7,.2,1)}
+ .trilha.vis .barra{width:1px;height:100%}
+ .etapa{display:grid;grid-template-columns:55px 1fr;gap:0 22px}
+ .etapa small{margin-top:4px}
+ .etapa>div{grid-column:2}
+ .blocos{grid-template-columns:1fr}
+ .moldura{margin-right:26px}
+ .js .an.esq,.js .an.dir{animation-name:fadeInUp!important}
+}
 </style>
 </head>
 <body>
 
-<header><div class="wrap">
- <span class="marca">Luiz Felipe Farias</span>
- <nav><a href="#consulta">A consulta</a><a href="#quem">Quem sou</a><a href="#onde">Onde</a><a href="#perguntas">Perguntas</a></nav>
+<header class="topo" id="topo"><div class="wrap">
+ <a class="marca" href="#"><b>Luiz Felipe Farias</b><small>Médico | CRM-ES 16911</small></a>
+ <nav>
+  <a href="#metodo">Método ALTA</a>
+  <a href="#consulta">A consulta</a>
+  <a href="#sobre">Sobre mim</a>
+  <a href="#onde">Onde atendo</a>
+  <a href="#duvidas">Dúvidas</a>
+  <a class="btn" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Agendar consulta</a>
+ </nav>
 </div></header>
 
-<div class="hero"><div class="wrap">
- <div class="traco"></div>
- <h1>Para quem exige muito de si no trabalho e no treino, e sente que o corpo <strong>parou de acompanhar.</strong></h1>
- <p>Energia, sono que recupera, composição corporal e saúde para os próximos anos. Eu acompanho executivos, empresários e atletas amadores de perto.</p>
- <a class="btn" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Agendar consulta</a>
- <div class="id">Dr. Luiz Felipe Farias · Médico | CRM-ES 16911 · Vitória-ES e on-line</div>
-</div></div>
-
-<section><div class="wrap">
- <div class="traco"></div>
- <h2>Talvez você se reconheça <strong>aqui.</strong></h2>
- <div class="grid">
-  <div class="card"><h3>Você lidera o dia inteiro</h3><p>E chega em casa sem energia para quem está te esperando.</p></div>
-  <div class="card"><h3>Você treina com disciplina</h3><p>E parou de evoluir, ou demora cada vez mais para recuperar.</p></div>
-  <div class="card"><h3>Você pensa nos próximos 20 anos</h3><p>E quer chegar aos 60 inteiro, sem esperar algo dar errado.</p></div>
+<main>
+<section class="hero">
+ <div class="wrap"><div class="hero-txt">
+  <span class="rot an fade">Vitória, ES · consultório e on-line</span>
+  <h1 class="disp linhas"><span class="l"><span>Você trabalha muito</span></span><span class="l"><span>e quer chegar aos</span></span><span class="l"><span><em>60 anos</em> ainda</span></span><span class="l"><span>treinando.</span></span></h1>
+  <p class="sub an up d3">Eu atendo à noite e aos sábados, porque é quando a maioria dos meus pacientes consegue sair do trabalho. Antes de pedir qualquer exame, quero ouvir como é o seu dia de verdade.</p>
+  <div class="acoes an up d4">
+   <a class="btn" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg>Agendar pelo WhatsApp</a>
+   <a class="btn btn-linha" href="#consulta">Como é a consulta</a>
+  </div>
+  <div class="assin an up d5">
+   <span><b>Seg. a sex., 19h às 22h30</b>Sábado, 9h às 15h</span>
+   <span><b>Enseada do Suá</b>Ed. Palácio da Praia, sala 803</span>
+  </div>
  </div>
-</div></section>
-
-<section style="padding-top:0"><div class="wrap">
- <div class="traco"></div>
- <h2>O que eu olho <strong>com você</strong></h2>
- <ul class="lista">
-  <li>A cabeça que não rende como antes: foco, memória, a tarde que pesa.</li>
-  <li>O sono que não repara, mesmo com horas na cama.</li>
-  <li>O peso que não mexe, a gordura que não sai, o músculo que vai embora.</li>
-  <li>A recuperação do treino e a carga que o seu corpo aguenta hoje.</li>
-  <li>Os exames "normais" que não explicam o cansaço.</li>
- </ul>
-</div></section>
-
-<section class="escuro" id="consulta"><div class="wrap">
- <div class="traco"></div>
- <h2>Como funciona <strong>a consulta</strong></h2>
- <div class="passos">
-  <div class="passo"><div><h3>Eu escuto a sua rotina inteira</h3><p>Trabalho, sono, treino, alimentação, casa. Antes de qualquer exame.</p></div></div>
-  <div class="passo"><div><h3>Eu olho o quadro inteiro</h3><p>E peço só os exames e as medidas que fazem sentido para o seu caso.</p></div></div>
-  <div class="passo"><div><h3>Você sai com um caminho individual</h3><p>Por escrito, pensado para a sua agenda real.</p></div></div>
-  <div class="passo"><div><h3>Acompanhamento individualizado</h3><p>O acompanhamento é individualizado, conforme a necessidade de cada paciente e o que ele deseja para a própria saúde.</p></div></div>
+ <div class="hero-foto an dir d2"><div class="q"><img src="img/foto-hero.jpg" onerror="this.closest('.hero-foto').style.display='none'" alt="Dr. Luiz Felipe Farias, médico em Vitória-ES" width="560" height="700" fetchpriority="high"></div></div>
  </div>
- <p class="cv">Presencial em Vitória ou on-line, no mesmo formato.</p>
-</div></section>
+ <span class="desce" aria-hidden="true"></span>
+</section>
 
-<section id="quem"><div class="wrap">
- <div class="traco"></div>
- <h2>Quem <strong>sou</strong></h2>
- <p style="max-width:720px;font-size:18px">Sempre estudei hormônio, músculo e esporte. A vida me levou por outro caminho por um tempo, e há pouco senti no coração que precisava voltar para o que eu amo. Hoje eu acompanho quem exige muito de si — no trabalho, no treino, em casa — com ciência, escuta e acompanhamento próximo.</p>
- <p class="cv"><b>Dr. Luiz Felipe Farias</b> · Médico | CRM-ES 16911<br>Graduado em Medicina pela Escola Superior de Ciências da Santa Casa de Misericórdia de Vitória (2020)</p>
-</div></section>
-
-<section id="onde" style="background:#EDE5DA"><div class="wrap">
- <div class="traco"></div>
- <h2>Onde <strong>atendo</strong></h2>
- <div class="onde">
-  <div><h3>Consultório em Vitória-ES</h3>
-   <p>Av. Nossa Senhora dos Navegantes, 755<br>Sala 803 · Ed. Palácio da Praia<br>Enseada do Suá · Vitória/ES · CEP 29050-335</p>
-   <p style="margin-top:14px"><a href="https://www.google.com/maps/search/?api=1&query=Av.+Nossa+Senhora+dos+Navegantes+755+Enseada+do+Sua+Vitoria+ES" target="_blank" rel="noopener">Abrir no mapa →</a></p></div>
-  <div><h3>Horários</h3><p>Segunda a sexta: 19h às 22h30<br>Sábado: 9h às 15h</p>
-   <h3 style="margin-top:22px">Consulta on-line</h3><p>Para quem está longe ou viaja muito.</p></div>
+<section class="quem">
+ <div class="wrap">
+  <div class="topo-sec">
+   <div>
+    <span class="rot an fade">Quem chega até mim</span>
+    <h2 class="disp an esq">Gente que cuida de <em>tudo</em> e deixa a própria saúde por último</h2>
+   </div>
+   <p class="an dir d2">Quase sempre é alguém que está funcionando, só que no limite. Resolve o dia inteiro, chega em casa às 20h e ainda quer ter disposição para a família.</p>
+  </div>
+  <div class="perfis">
+   <div class="perfil an up"><span class="n">01</span><h3>Executivos e empresários</h3><p>Reunião atrás de reunião, almoço no carro, sono curto. O corpo vai cobrando aos poucos e a pessoa só percebe quando o rendimento cai.</p></div>
+   <div class="perfil an up d1"><span class="n">02</span><h3>Atletas amadores</h3><p>Corrida, tênis, musculação. Treina sério, mas parou de evoluir ou está levando dias para se recuperar de um treino que antes era tranquilo.</p></div>
+   <div class="perfil an up d2"><span class="n">03</span><h3>Quem quer se antecipar</h3><p>Está bem hoje e prefere olhar com calma agora do que descobrir alguma coisa daqui a dez anos.</p></div>
+  </div>
  </div>
-</div></section>
+</section>
 
-<section id="perguntas"><div class="wrap">
- <div class="traco"></div>
- <h2>Perguntas <strong>frequentes</strong></h2>
- <details><summary>Atende on-line?</summary><p>Sim. A consulta on-line segue o mesmo formato da presencial: escuta da rotina inteira, avaliação, exames direcionados e plano individual.</p></details>
- <details><summary>Como funciona a primeira consulta?</summary><p>Começo ouvindo a sua rotina inteira — trabalho, sono, treino e alimentação. Depois olho o quadro completo, peço só os exames necessários e monto com você um caminho individual. Eu acompanho você até 45 dias depois da consulta.</p></details>
- <details><summary>Qual a diferença entre a consulta e o plano de acompanhamento?</summary><p>A consulta inclui a avaliação completa e o acompanhamento até 45 dias depois dela. O plano de acompanhamento é para quem quer o cuidado de perto ao longo dos meses, com consultas e retornos programados.</p></details>
- <details><summary>Preciso levar exames?</summary><p>Traga os que tiver, de qualquer data. Os novos eu peço só depois de te ouvir.</p></details>
- <details><summary>Qual o horário de atendimento?</summary><p>Segunda a sexta, das 19h às 22h30, e sábado, das 9h às 15h — pensado para quem tem agenda cheia durante o dia.</p></details>
- <details><summary>Como agendar?</summary><p>Pelo WhatsApp (27) 99983-7159 ou pelo botão desta página.</p></details>
-</div></section>
+<section class="frases">
+ <div class="wrap">
+  <div>
+   <span class="rot an fade" style="color:var(--areia)">O que eu mais escuto</span>
+   <h2 class="disp an esq">Frases que eu <em>escuto</em> no consultório</h2>
+   <p class="apoio an up d2">Se alguma delas parece sua, vale a gente conversar.</p>
+  </div>
+  <ul class="falas">
+   <li class="an dir">Durmo sete horas e acordo cansado.</li>
+   <li class="an dir d1">Lá pelas três da tarde a minha cabeça desliga.</li>
+   <li class="an dir d2">Treino há anos e a barriga não sai.</li>
+   <li class="an dir d3">Meus exames deram normais, mas eu sei que não estou bem.</li>
+   <li class="an dir d4">Antes eu me recuperava de um jogo em um dia. Agora levo três.</li>
+  </ul>
+ </div>
+</section>
 
-<section class="escuro cta"><div class="wrap">
- <h2>O primeiro passo é uma <strong>conversa.</strong></h2>
- <a class="btn" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
- <p class="cv">WhatsApp (27) 99983-7159</p>
-</div></section>
+<section class="metodo" id="metodo">
+ <div class="wrap">
+  <div class="grande an fade" aria-hidden="true">ALTA</div>
+  <div class="cab2">
+   <div>
+    <span class="rot an fade">Como eu trabalho</span>
+    <h2 class="disp an esq">Método <em>ALTA</em></h2>
+   </div>
+   <div>
+    <p class="an dir d1">É como eu chamo a forma de conduzir cada acompanhamento. Cada plano parte da sua rotina, e não de um protocolo pronto.</p>
+    <p class="an dir d2">Na prática, ele aparece em quatro coisas que você vai sentir desde a primeira consulta.</p>
+   </div>
+  </div>
+  <div class="acoes4">
+   <div class="an up"><h3>Escutar sem pressa</h3><p>A consulta começa pela sua rotina, não pelo exame. Horário de acordar, reunião, treino, o que você come no meio do dia.</p></div>
+   <div class="an up d1"><h3>Ver o quadro inteiro</h3><p>Sono ruim, cansaço e peso que não sai costumam estar ligados. Eu olho para tudo junto antes de decidir qualquer coisa.</p></div>
+   <div class="an up d2"><h3>Medir o que importa</h3><p>Composição corporal, força da mão no dinamômetro e os exames que fazem sentido para o seu caso.</p></div>
+   <div class="an up d3"><h3>Acompanhar</h3><p>O plano é revisto com você no ritmo que o seu caso pede, conforme a sua necessidade e o que você quer para a própria saúde.</p></div>
+  </div>
+ </div>
+</section>
+
+<section class="consulta" id="consulta">
+ <div class="wrap">
+  <div class="cab">
+   <div>
+    <span class="rot an fade">Passo a passo</span>
+    <h2 class="disp an esq">Como é <em>a consulta</em></h2>
+   </div>
+   <p class="an dir d2">A consulta on-line segue o mesmo roteiro da presencial. Só muda o lugar onde você está.</p>
+  </div>
+  <div class="trilha" id="trilha">
+   <span class="barra"></span>
+   <div class="etapa an up"><span class="bola">1</span><div><small>Primeira etapa</small><h3>Escuto sua rotina</h3><p>Trabalho, sono, treino, alimentação e casa. Quero entender o seu dia antes de olhar para qualquer exame.</p></div></div>
+   <div class="etapa an up d1"><span class="bola">2</span><div><small>Segunda etapa</small><h3>Avalio e meço</h3><p>Examino você, meço a força da sua mão com dinamômetro e peço só os exames que fazem sentido para o seu caso.</p></div></div>
+   <div class="etapa an up d2"><span class="bola">3</span><div><small>Terceira etapa</small><h3>Plano por escrito</h3><p>Você sai com as orientações escritas, pensadas para a agenda que você tem, e não para a agenda ideal.</p></div></div>
+   <div class="etapa an up d3"><span class="bola">4</span><div><small>Quarta etapa</small><h3>Acompanhamento individualizado</h3><p>O acompanhamento é individualizado, conforme a necessidade de cada paciente e o que ele deseja para a própria saúde.</p></div></div>
+  </div>
+  <div class="rodape-sec an up">
+   <a class="btn" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Quero marcar minha consulta</a>
+   <p>Presencial em Vitória ou on-line, de onde você estiver.</p>
+  </div>
+ </div>
+</section>
+
+<section class="sobre" id="sobre">
+ <div class="wrap">
+  <div class="moldura an esq"><div class="foto"><img src="img/foto-sobre.jpg" onerror="this.closest('.moldura').style.display='none'" alt="Dr. Luiz Felipe Farias" width="520" height="650" loading="lazy"></div></div>
+  <div>
+   <span class="rot an fade">Sobre mim</span>
+   <h2 class="disp an dir">Luiz Felipe <em>Farias</em></h2>
+   <p class="an up d1">Sempre estudei hormônio, músculo e esporte. A vida me levou por outro caminho por um tempo e eu me acomodei. Há pouco senti no coração que precisava voltar para o que eu amo, e foi assim que nasceu o consultório.</p>
+   <p class="an up d2">Hoje acompanho pessoas que exigem muito de si no trabalho, no treino e em casa. Gosto de ouvir com calma e de explicar o porquê de cada conduta. Eu também acordo cedo, treino antes do trabalho e conheço de perto a rotina de quem não tem tempo sobrando.</p>
+   <div class="registro an up d3"><b>Dr. Luiz Felipe Farias · Médico · CRM-ES 16911</b>Graduado em Medicina pela Escola Superior de Ciências da Santa Casa de Misericórdia de Vitória (2020).</div>
+  </div>
+ </div>
+</section>
+
+<section class="onde" id="onde">
+ <div class="wrap">
+  <span class="rot an fade">Onde atendo</span>
+  <h2 class="disp an esq">Endereço <em>e horários</em></h2>
+  <div class="blocos">
+   <div class="an up"><h3>Consultório</h3><p>Av. Nossa Senhora dos Navegantes, 755<br>Ed. Palácio da Praia, sala 803<br>Enseada do Suá, Vitória-ES<br>CEP 29050-335</p><a class="lk" href="https://www.google.com/maps/search/?api=1&query=Av.+Nossa+Senhora+dos+Navegantes+755+Enseada+do+Sua+Vitoria+ES" target="_blank" rel="noopener">Abrir no Google Maps</a></div>
+   <div class="an up d1"><h3>Horários</h3><p>Segunda a sexta, das 19h às 22h30<br>Sábado, das 9h às 15h</p><p class="leve" style="margin-top:12px;font-size:14px">Consulta on-line nos mesmos horários.</p></div>
+   <div class="an up d2"><h3>Agendamento</h3><p>WhatsApp<br>(27) 99983-7159</p><a class="lk" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Chamar no WhatsApp</a></div>
+  </div>
+ </div>
+</section>
+
+<section class="duvidas" id="duvidas">
+ <div class="wrap">
+  <div>
+   <span class="rot an fade">Antes de marcar</span>
+   <h2 class="disp an esq">Dúvidas <em>que recebo</em></h2>
+  </div>
+  <div class="lista">
+   <div class="item an up"><button aria-expanded="false">Você atende on-line?<span class="mais"></span></button><div class="resp"><div><p>Atendo. A consulta on-line segue o mesmo roteiro da presencial: conversa sobre a sua rotina, avaliação, exames direcionados e plano por escrito.</p></div></div></div>
+   <div class="item an up d1"><button aria-expanded="false">Como é a primeira consulta?<span class="mais"></span></button><div class="resp"><div><p>Começo ouvindo sobre o seu trabalho, sono, treino e alimentação. Depois avalio o quadro completo, peço só os exames necessários e montamos juntos o plano. Eu acompanho você até 45 dias depois da consulta.</p></div></div></div>
+   <div class="item an up d2"><button aria-expanded="false">Qual a diferença entre a consulta e o plano de acompanhamento?<span class="mais"></span></button><div class="resp"><div><p>A consulta inclui a avaliação completa e o acompanhamento até 45 dias depois dela. O plano de acompanhamento é para quem quer um cuidado mais próximo ao longo dos meses, com consultas e retornos programados.</p></div></div></div>
+   <div class="item an up d3"><button aria-expanded="false">Preciso levar exames?<span class="mais"></span></button><div class="resp"><div><p>Traga os que você tiver, de qualquer data. Exame novo eu só peço depois de ouvir você.</p></div></div></div>
+   <div class="item an up d4"><button aria-expanded="false">Por que o atendimento é à noite e aos sábados?<span class="mais"></span></button><div class="resp"><div><p>Porque é o horário em que quem trabalha o dia inteiro consegue vir sem desmarcar reunião.</p></div></div></div>
+  </div>
+ </div>
+</section>
+
+<section class="final">
+ <div class="wrap">
+  <span class="rot an fade" style="color:var(--areia)">Agendamento</span>
+  <h2 class="disp linhas"><span class="l"><span>Mande uma mensagem.</span></span><span class="l"><span>Meu time <em>responde</em>.</span></span></h2>
+  <p class="an up d2">Conte em poucas palavras o que está incomodando e a gente encontra o melhor horário para você.</p>
+  <a class="btn an up d3" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+ </div>
+</section>
+</main>
 
 <footer><div class="wrap">
- <span>Dr. Luiz Felipe Farias · Médico | CRM-ES 16911 · Vitória-ES</span>
- <span>Seus dados são usados só para o agendamento, conforme a LGPD.</span>
+ <span><b>Dr. Luiz Felipe Farias</b> · Médico · CRM-ES 16911 · Vitória-ES</span>
+ <span>Este site não substitui uma consulta médica. Seus dados são usados apenas para o agendamento, conforme a LGPD.</span>
 </div></footer>
 
-<a class="zap" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener">WhatsApp</a>
+<a class="zap" id="zap" href="https://wa.me/5527999837159?text=Ol%C3%A1!%20Vim%20pelo%20site." target="_blank" rel="noopener" aria-label="Agendar pelo WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-3.3-.8-2.8-1.1-4.5-3.9-4.7-4.1-.1-.2-1.1-1.5-1.1-2.9s.7-2.1 1-2.4c.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.1.1.6-.1 1.2Z"/></svg></a>
+
+<script>
+(function(){
+ var topo=document.getElementById('topo'),zap=document.getElementById('zap');
+ function rolar(){var y=window.scrollY;topo.classList.toggle('rolou',y>40);zap.classList.toggle('mostra',y>window.innerHeight*.6);}
+ window.addEventListener('scroll',rolar,{passive:true});rolar();
+
+ var alvos=document.querySelectorAll('.an,.linhas,#trilha');
+ if(!('IntersectionObserver' in window)){alvos.forEach(function(e){e.classList.add('vis')});}
+ else{
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('vis');io.unobserve(x.target);}})},{threshold:.15,rootMargin:'0px 0px -60px 0px'});
+  alvos.forEach(function(e){io.observe(e)});
+ }
+
+ document.querySelectorAll('.item button').forEach(function(b){
+  b.addEventListener('click',function(){var it=b.parentNode,ab=!it.classList.contains('aberto');it.classList.toggle('aberto',ab);b.setAttribute('aria-expanded',ab);});
+ });
+})();
+</script>
 </body>
 </html>
